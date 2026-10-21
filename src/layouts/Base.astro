@@ -2,17 +2,63 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import { getImage } from 'astro:assets';
+import portrait from '../assets/eduardo.jpg';
+import { site, skills } from '../data/site';
 
 interface Props {
   title?: string;
   description?: string;
   type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  tags?: string[];
+  schema?: Record<string, unknown>[]; // extra structured data for this page
 }
 
-const { title = site.title, description = site.description, type = 'website' } = Astro.props;
+const {
+  title = site.title,
+  description = site.description,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  schema = [],
+} = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
+const ogAlt = `${site.name}, ${site.role.toLowerCase()}`;
+const photo = await getImage({ src: portrait, width: 400, height: 400, format: 'jpg' });
+const photoUrl = new URL(photo.src, Astro.site).href;
+
+// Real profile links only (skips any placeholder like "your-username")
+const sameAs = Object.values(site.social).filter((u) => u && !u.includes('your-username'));
+
+const graph = [
+  {
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    description: site.description,
+    inLanguage: 'en',
+    publisher: { '@id': `${site.url}/#person` },
+  },
+  {
+    '@type': 'Person',
+    '@id': `${site.url}/#person`,
+    name: site.name,
+    url: site.url,
+    image: photoUrl,
+    jobTitle: site.role,
+    email: `mailto:${site.email}`,
+    address: { '@type': 'PostalAddress', addressLocality: site.location.split(',')[0], addressCountry: 'US' },
+    knowsAbout: [...new Set(skills.flatMap((g) => g.items))],
+    sameAs,
+  },
+  ...schema,
+];
 ---
 
 <!doctype html>
@@ -22,27 +68,35 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name} — Notes`} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#0d1321" />
 
     <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    {type === 'article' && <meta property="article:author" content={site.url} />}
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: site.name,
-      url: site.url,
-      jobTitle: site.role,
-      sameAs: Object.values(site.social),
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

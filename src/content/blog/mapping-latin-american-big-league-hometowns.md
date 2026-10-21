@@ -1,6 +1,7 @@
 ---
 title: Where Latin America's big leaguers come from, and why mapping it was harder than it looked
-description: Building the hometown maps for Latinos en Baseball meant matching 2,442 birthplaces to real coordinates. Here's what the data shows and the messy problems behind it.
+seoTitle: "Mapping where Latin America's MLB players come from"
+description: How I matched 2,442 birthplaces to real coordinates for the Latinos en Baseball hometown maps, what the data shows, and the messy problems behind it.
 date: 2026-10-21
 tags: [data, python, astro, baseball]
 draft: false

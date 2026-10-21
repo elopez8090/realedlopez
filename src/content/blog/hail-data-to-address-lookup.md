@@ -1,5 +1,6 @@
 ---
 title: How I turned 42,000 NOAA hail reports into a free address lookup
+seoTitle: "Turning 42,000 NOAA hail reports into an address lookup"
 description: The data pipeline, address search, and daily updates behind Hailstorm Report, a static Astro site that tells homeowners whether hail hit near their house.
 date: 2026-10-21
 tags: [astro, data, noaa, cloudflare]

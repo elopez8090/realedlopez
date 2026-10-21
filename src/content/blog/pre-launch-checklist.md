@@ -1,6 +1,6 @@
 ---
 title: What I check before launching a website
-description: The checklist behind Hailstorm Report, Latinos en Baseball, and this portfolio, from search titles and sitemaps to phone screens, data checks, and honest disclaimers.
+description: "The checklist behind Hailstorm Report, Latinos en Baseball, and this portfolio: search titles, sitemaps, phones, data checks, and honest disclaimers."
 date: 2026-10-21
 tags: [launch, seo, astro, checklist]
 draft: false

@@ -9,9 +9,9 @@ export const site = {
   role: 'Full-stack software engineer',
   location: 'New York, USA',
   // Shown in the browser tab and search results
-  title: 'Eduardo Lopez — Full-stack software engineer',
+  title: 'Eduardo Lopez | Full-Stack Developer (Astro & Next.js)',
   description:
-    'Eduardo Lopez is an independent full-stack developer who builds fast, data-driven websites with Astro and Next.js, from the first idea to launch and beyond.',
+    'Eduardo Lopez is an independent full-stack developer building fast, data-driven websites with Astro and Next.js, from the first idea to launch.',
   // Hero copy
   headline: 'I build web software that holds up in production.',
   intro:
