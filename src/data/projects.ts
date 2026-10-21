@@ -1,5 +1,4 @@
-// Replace these sample projects with your own work.
-// The first project marked `featured: true` gets the large spot on the homepage.
+// Your projects. The first one marked `featured: true` gets the large spot on the homepage.
 
 export interface Project {
   title: string;
@@ -15,40 +14,33 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'Ledgerline',
-    summary: 'Invoicing and payments dashboard for small agencies.',
+    title: 'Hailstorm Report',
+    summary: 'Free hail history lookup for any U.S. address, built on NOAA storm data.',
     problem:
-      'Agencies were reconciling invoices across spreadsheets and three payment tools. Ledgerline pulls everything into one view with automatic reminders.',
-    role: 'Sole engineer — data model, API, UI, and deployment.',
-    stack: ['Next.js', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS'],
-    outcome: 'Cut time spent on monthly billing from two days to under an hour.',
-    live: 'https://example.com',
-    repo: 'https://github.com/your-username/ledgerline',
+      'Homeowners rarely know whether a storm actually hit their house before they call a roofer or file a claim. Enter an address and the site lists nearby NOAA hail reports with dates, sizes, and distances, a roof-inspection suggestion, and how many days are left in a typical claim window.',
+    role: 'Solo project: designed and built the data pipeline, address search, and state, county, and storm pages.',
+    stack: ['Astro', 'NOAA Storm Events data', 'Programmatic SEO'],
+    outcome: '41,927 hail reports and 4,021 hail days since 2015, searchable across 5 states.',
+    live: 'https://hailstormreport.com/',
     featured: true,
   },
   {
-    title: 'Trailhead API',
-    summary: 'Public REST API serving trail conditions to 40k monthly users.',
-    problem: 'Rebuilt a slow PHP service as a typed Node API with caching and rate limits.',
-    role: 'Backend lead',
-    stack: ['TypeScript', 'Fastify', 'Redis', 'Docker'],
-    outcome: 'p95 response time dropped from 1.8s to 120ms.',
-    repo: 'https://github.com/your-username/trailhead-api',
+    title: 'Latinos en Baseball',
+    summary: 'Bilingual stats and history site for every major leaguer born in Latin America.',
+    problem:
+      'Explore 2,488 players from 11 countries by country, hometown, and position, with all-time leaders, player comparisons, a “born on this day” feature, and long-form stories.',
+    role: 'Solo project: designed and built the site, data model, and English/Spanish versions.',
+    stack: ['Astro', 'i18n (EN/ES)', 'Lahman Baseball Database', 'Cloudflare'],
+    outcome: '2,488 player profiles, 19 Hall of Famers, and the La Pizarra newsletter.',
+    live: 'https://latinosenbaseball.com/en/',
   },
   {
-    title: 'Shiftboard',
-    summary: 'Scheduling app for hourly teams, built mobile-first.',
-    problem: 'Managers needed to publish and swap shifts from their phones without calls.',
-    role: 'Full-stack, from design system to push notifications',
-    stack: ['React', 'GraphQL', 'PostgreSQL', 'Firebase'],
-    live: 'https://example.com',
-  },
-  {
-    title: 'deploy-preview-bot',
-    summary: 'Open-source GitHub Action that posts preview links and Lighthouse scores on every PR.',
-    problem: 'Reviewers kept missing performance regressions until after release.',
-    role: 'Author and maintainer',
-    stack: ['GitHub Actions', 'Node.js', 'Lighthouse CI'],
-    repo: 'https://github.com/your-username/deploy-preview-bot',
+    title: 'Christian Homeschools Hub',
+    summary: 'Directory of Christ-centered homeschool programs, co-ops, and resources in all 50 states.',
+    problem:
+      'Helps Christian families find homeschool programs and co-ops near them, organized by state, with owner-verified listings and ESA eligibility details.',
+    role: 'Solo project: designed and built the directory, listing submissions, and admin review.',
+    stack: ['Next.js', 'Search', 'Admin dashboard'],
+    live: 'https://www.christianhomeschoolshub.com/',
   },
 ];

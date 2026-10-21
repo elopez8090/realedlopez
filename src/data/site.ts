@@ -20,14 +20,14 @@ export const site = {
   email: 'hello@realedlopez.com',
   resume: '/resume.pdf', // drop your résumé at public/resume.pdf
   social: {
-    github: 'https://github.com/your-username',
+    github: 'https://github.com/elopez8090',
     linkedin: 'https://www.linkedin.com/in/your-username',
   },
 };
 
 // Lines printed in the hero terminal
 export const terminal = {
-  stack: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker'],
+  stack: ['TypeScript', 'Astro', 'Next.js', 'React', 'Node.js'],
   focus: 'APIs, product UI, cloud deploys',
 };
 
