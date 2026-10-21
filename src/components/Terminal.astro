@@ -94,6 +94,11 @@ function hash(s: string) {
     .l { opacity: 0; animation: print 0.01s linear forwards; animation-delay: calc(var(--i) * 170ms + 250ms); }
     .cursor { animation: blink 1.1s steps(1) infinite; }
   }
+  @media (max-width: 36rem) {
+    .term { font-size: 0.74rem; line-height: 1.7; border-radius: 12px; }
+    .body { padding: 0.9rem 1rem 1rem; }
+    .chrome { padding: 0.6rem 0.9rem; }
+  }
   @keyframes print { to { opacity: 1; } }
   @keyframes blink { 50% { opacity: 0; } }
 </style>

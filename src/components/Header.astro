@@ -45,8 +45,14 @@ const links = [
   nav a { text-decoration: none; color: var(--muted); font-size: var(--step--1); font-weight: 500; transition: color 0.15s; }
   nav a:hover, nav a[aria-current='page'] { color: var(--text); }
   @media (max-width: 30rem) {
+    .bar { height: 3.75rem; }
     nav li:nth-child(2) { display: none; }
+    ul { gap: 1rem; }
+    nav a { font-size: 0.9rem; }
     .name { font-size: 1.15rem; }
     .prompt { display: none; }
+  }
+  @media (max-width: 23rem) {
+    nav li:nth-child(3) { display: none; }
   }
 </style>
