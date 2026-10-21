@@ -1,5 +1,7 @@
 ---
 import { site } from '../data/site';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
 import { getCollection } from 'astro:content';
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const path = Astro.url.pathname;
@@ -14,7 +16,7 @@ const links = [
 <header class="header">
   <div class="wrap bar">
     <a href="/" class="logo" aria-label={`${site.name}, home`}>
-      <span class="prompt" aria-hidden="true">~/</span><span class="name">{site.name}</span>
+      <Image src={logo} alt={site.name} width={400} class="logo-img" loading="eager" />
     </a>
     <nav aria-label="Main">
       <ul>
@@ -39,10 +41,8 @@ const links = [
     border-bottom: 1px solid var(--rule);
   }
   .bar { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; gap: 1rem; }
-  .logo { display: inline-flex; align-items: baseline; gap: 0.4rem; text-decoration: none; white-space: nowrap; }
-  .name { font-family: var(--sans); font-weight: 600; font-size: 1.375rem; letter-spacing: -0.02em; }
-  .prompt { font-family: var(--mono); font-weight: 500; font-size: 1.05rem; }
-  .prompt { color: var(--amber); }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; flex: none; }
+  .logo-img { height: 30px; width: auto; display: block; }
   ul { display: flex; gap: clamp(0.9rem, 3vw, 2rem); list-style: none; margin: 0; padding: 0; }
   nav a { text-decoration: none; color: var(--muted); font-size: var(--step--1); font-weight: 500; transition: color 0.15s; }
   nav a:hover, nav a[aria-current='page'] { color: var(--text); }
@@ -51,8 +51,7 @@ const links = [
     nav li:nth-child(2) { display: none; }
     ul { gap: 1rem; }
     nav a { font-size: 0.9rem; }
-    .name { font-size: 1.15rem; }
-    .prompt { display: none; }
+    .logo-img { height: 22px; }
   }
   @media (max-width: 23rem) {
     nav li.notes { display: none; }
