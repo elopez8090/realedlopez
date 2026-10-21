@@ -17,7 +17,7 @@ export const site = {
   intro:
     'Full-stack engineer working across React, Node.js, Postgres, and cloud infrastructure. I take products from a rough idea to a fast, tested, well-monitored release.',
   available: true, // shows the "Open to new work" status in the hero
-  email: 'hello@realedlopez.com',
+  email: 'eduardo@realedlopez.com',
   resume: '/resume.pdf', // drop your résumé at public/resume.pdf
   social: {
     github: 'https://github.com/elopez8090',

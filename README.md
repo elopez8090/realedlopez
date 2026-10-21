@@ -33,7 +33,7 @@ Checklist before going live:
 - [ ] Replace the sample projects, jobs, and blog post with your real ones
 - [ ] Update the GitHub and LinkedIn links in `site.ts`
 - [ ] Add `public/resume.pdf`
-- [ ] Make sure `hello@realedlopez.com` actually receives mail (see below)
+- [ ] Make sure `eduardo@realedlopez.com` actually receives mail (see below)
 
 ### Writing a blog post
 
@@ -66,7 +66,7 @@ After that, every `git push` redeploys the site.
 
 ## Email at your domain
 
-For `hello@realedlopez.com`, either:
+For `eduardo@realedlopez.com`, either:
 
 - **Forward to your existing inbox for free** with Cloudflare Email Routing or ImprovMX, or
 - **Get a full mailbox** with Google Workspace, Zoho Mail, or Fastmail.
