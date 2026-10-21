@@ -11,11 +11,11 @@ export const site = {
   // Shown in the browser tab and search results
   title: 'Eduardo Lopez — Full-stack software engineer',
   description:
-    'Eduardo Lopez is a full-stack software engineer who designs, builds, and ships reliable web applications with TypeScript, Node.js, React, and the cloud.',
+    'Eduardo Lopez is an independent full-stack developer who builds fast, data-driven websites with Astro and Next.js, from the first idea to launch and beyond.',
   // Hero copy
   headline: 'I build web software that holds up in production.',
   intro:
-    'Full-stack engineer working across React, Node.js, Postgres, and cloud infrastructure. I take products from a rough idea to a fast, tested, well-monitored release.',
+    'Independent full-stack developer. I build fast, data-driven websites with Astro and Next.js, from the first idea to launch and beyond.',
   available: true, // shows the "Open to new work" status in the hero
   email: 'eduardo@realedlopez.com',
   resume: '/resume.pdf', // drop your résumé at public/resume.pdf

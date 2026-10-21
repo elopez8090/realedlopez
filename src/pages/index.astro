@@ -25,7 +25,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <div class="intro-row">
-          <Image src={portrait} alt={`Portrait of ${site.name}`} width={144} height={144} class="avatar" loading="eager" />
+          <Image src={portrait} alt={`Portrait of ${site.name}`} width={184} height={184} class="avatar" loading="eager" />
           <p class="kicker">Hi, I’m {site.name}. {site.role}, based in {site.location.split(',')[0]}.</p>
         </div>
         <h1>{site.headline}</h1>
@@ -170,12 +170,12 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     -webkit-mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 20%, transparent 75%);
   }
   .hero-inner { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: center; }
-  .intro-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .intro-row { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.75rem; }
   .avatar {
-    width: 72px; height: 72px; flex: none; border-radius: 50%; object-fit: cover;
+    width: clamp(72px, 6vw, 92px); height: clamp(72px, 6vw, 92px); flex: none; border-radius: 50%; object-fit: cover;
     box-shadow: 0 0 0 3px var(--ink), 0 0 0 5px var(--amber);
   }
-  .kicker { color: var(--muted); margin: 0; font-size: var(--step--1); font-weight: 500; max-width: 32ch; }
+  .kicker { color: #c4ccda; margin: 0; font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem); line-height: 1.4; font-weight: 500; max-width: 30ch; }
   h1 { font-size: var(--step-4); letter-spacing: -0.035em; font-weight: 600; max-width: 14ch; text-wrap: balance; }
   .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; max-width: 38ch; margin: 1.5rem 0 2rem; }
   .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
