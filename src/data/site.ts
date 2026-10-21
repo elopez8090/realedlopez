@@ -32,8 +32,8 @@ export const terminal = {
 };
 
 export const skills: { group: string; items: string[] }[] = [
-  { group: 'Languages', items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Go'] },
-  { group: 'Frontend', items: ['React', 'Next.js', 'Astro', 'Tailwind CSS', 'Accessibility'] },
-  { group: 'Backend', items: ['Node.js', 'Express', 'REST & GraphQL', 'PostgreSQL', 'Redis'] },
-  { group: 'Cloud & DevOps', items: ['AWS', 'Docker', 'GitHub Actions', 'Terraform', 'Observability'] },
+  { group: 'Languages', items: ['TypeScript', 'JavaScript', 'HTML & CSS', 'SQL'] },
+  { group: 'Frameworks', items: ['Astro', 'Next.js', 'React', 'Node.js'] },
+  { group: 'Data', items: ['Public datasets', 'Data cleaning', 'Search', 'i18n (EN/ES)'] },
+  { group: 'Shipping', items: ['Cloudflare', 'Vercel', 'Git & GitHub', 'SEO & metadata'] },
 ];

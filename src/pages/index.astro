@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Terminal from '../components/Terminal.astro';
 import { site, skills } from '../data/site';
 import { projects } from '../data/projects';
-import { experience } from '../data/experience';
+import { intro as workIntro, steps } from '../data/experience';
 import { getCollection } from 'astro:content';
 
 const featured = projects.find((p) => p.featured) ?? projects[0];
@@ -83,23 +83,24 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     </div>
   </section>
 
-  <!-- Experience + skills -->
+  <!-- How I work + skills -->
   <section class="section" id="experience">
     <div class="wrap two-col">
       <div>
-        <div class="section-head"><h2>Experience</h2></div>
+        <div class="section-head"><h2>How I work</h2></div>
+        <p class="work-intro">{workIntro}</p>
         <ol class="timeline">
-          {experience.map((j) => (
+          {steps.map((s, n) => (
             <li>
-              <p class="period">{j.period}</p>
+              <p class="period">Step {n + 1}</p>
               <div>
-                <h3>{j.title}<span class="at"> at {j.company}</span></h3>
-                <p>{j.detail}</p>
+                <h3>{s.title}</h3>
+                <p>{s.detail}</p>
               </div>
             </li>
           ))}
         </ol>
-        <a class="btn resume" href={site.resume}>Download résumé (PDF)</a>
+        <a class="btn" href={`mailto:${site.email}`}>Start a project with me</a>
       </div>
 
       <aside class="skills" aria-labelledby="skills-h">
@@ -204,6 +205,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
 
   /* Experience */
   .two-col { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); }
+  .work-intro { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; max-width: 40ch; margin: -1rem 0 2.5rem; }
   .timeline { list-style: none; padding: 0; margin: 0 0 2rem; }
   .timeline li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1.5rem; padding-bottom: 2rem; position: relative; }
   .timeline li::before {
