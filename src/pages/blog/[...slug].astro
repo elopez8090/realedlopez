@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const words = (post.body ?? '').split(/\s+/).length;
+const minutes = Math.max(1, Math.round(words / 230));
+const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={`${post.data.title} | ${site.name}`} description={post.data.description} type="article">
+  <article class="wrap post">
+    <a href="/blog/" class="back">All writing</a>
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        <time datetime={post.data.date.toISOString()}>{date}</time>, {minutes} min read
+      </p>
+      {post.data.tags.length > 0 && <ul class="chips">{post.data.tags.map((t) => <li>{t}</li>)}</ul>}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <footer class="end">
+      <p>Thanks for reading. Questions or corrections? <a href={`mailto:${site.email}`}>Email me</a>.</p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .post { padding-block: clamp(3rem, 7vw, 5rem); max-width: 46rem; }
+  .back { color: var(--muted); text-decoration: none; font-size: var(--step--1); font-weight: 500; }
+  .back:hover { color: var(--amber); }
+  header { margin: 1.5rem 0 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+  h1 { font-size: var(--step-3); text-wrap: balance; }
+  .meta { color: var(--muted); margin: 1rem 0; font-size: var(--step--1); }
+  .end { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); }
+  .end a { color: var(--amber); }
+</style>

@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap row">
+    <p>© {year} {site.name}. Built with Astro.</p>
+    <ul>
+      <li><a href={site.social.github} rel="me">GitHub</a></li>
+      <li><a href={site.social.linkedin} rel="me">LinkedIn</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--rule); padding-block: 2rem; color: var(--muted); font-size: var(--step--1); }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  p { margin: 0; }
+  ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+  a { text-decoration: none; }
+  a:hover { color: var(--text); }
+</style>

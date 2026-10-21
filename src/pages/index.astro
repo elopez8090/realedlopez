@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import Terminal from '../components/Terminal.astro';
+import { site, skills } from '../data/site';
+import { projects } from '../data/projects';
+import { experience } from '../data/experience';
+import { getCollection } from 'astro:content';
+
+const featured = projects.find((p) => p.featured) ?? projects[0];
+const rest = projects.filter((p) => p !== featured);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="kicker">Hi, I’m {site.name}. {site.role}, based in {site.location.split(',')[0]}.</p>
+        <h1>{site.headline}</h1>
+        <p class="lede">{site.intro}</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#work">See my work</a>
+          <a class="btn" href={`mailto:${site.email}`}>Email me</a>
+        </div>
+      </div>
+      <div class="hero-term">
+        <Terminal />
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Selected work</h2>
+        <p>Products and tools I designed, built, and shipped to real users.</p>
+      </div>
+
+      <article class="featured">
+        <div class="f-main">
+          <h3>{featured.title}</h3>
+          <p class="f-summary">{featured.summary}</p>
+          <p>{featured.problem}</p>
+          {featured.outcome && <p class="outcome">{featured.outcome}</p>}
+        </div>
+        <dl class="f-meta">
+          <div><dt>Role</dt><dd>{featured.role}</dd></div>
+          <div><dt>Stack</dt><dd><ul class="chips">{featured.stack.map((s) => <li>{s}</li>)}</ul></dd></div>
+          <div class="links">
+            {featured.live && <a class="btn btn-primary" href={featured.live}>Visit live site</a>}
+            {featured.repo && <a class="btn" href={featured.repo}>View source</a>}
+          </div>
+        </dl>
+      </article>
+
+      <ul class="projects">
+        {rest.map((p) => (
+          <li class="project">
+            <div class="p-title">
+              <h3>{p.title}</h3>
+              <p>{p.summary}</p>
+            </div>
+            <div class="p-body">
+              <p>{p.problem}</p>
+              {p.outcome && <p class="outcome">{p.outcome}</p>}
+              <ul class="chips">{p.stack.map((s) => <li>{s}</li>)}</ul>
+            </div>
+            <div class="p-links">
+              {p.live && <a href={p.live}>Live site<span class="visually-hidden"> for {p.title}</span></a>}
+              {p.repo && <a href={p.repo}>Source<span class="visually-hidden"> for {p.title}</span></a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Experience + skills -->
+  <section class="section" id="experience">
+    <div class="wrap two-col">
+      <div>
+        <div class="section-head"><h2>Experience</h2></div>
+        <ol class="timeline">
+          {experience.map((j) => (
+            <li>
+              <p class="period">{j.period}</p>
+              <div>
+                <h3>{j.title}<span class="at"> at {j.company}</span></h3>
+                <p>{j.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a class="btn resume" href={site.resume}>Download résumé (PDF)</a>
+      </div>
+
+      <aside class="skills" aria-labelledby="skills-h">
+        <h2 id="skills-h">Toolbox</h2>
+        {skills.map((g) => (
+          <div class="skill-group">
+            <h3>{g.group}</h3>
+            <ul class="chips">{g.items.map((s) => <li>{s}</li>)}</ul>
+          </div>
+        ))}
+      </aside>
+    </div>
+  </section>
+
+  <!-- Writing -->
+  <section class="section" id="writing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Writing</h2>
+        <a href="/blog/" class="all">All posts</a>
+      </div>
+      <ul class="posts">
+        {posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.id}/`}>
+              <time datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+              <span class="post-title">{p.data.title}</span>
+              <span class="post-desc">{p.data.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="wrap">
+      <h2>Have a project or a role in mind?</h2>
+      <p>I reply to every message within two business days.</p>
+      <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+      <ul class="contact-links">
+        <li><a href={site.social.github}>GitHub</a></li>
+        <li><a href={site.social.linkedin}>LinkedIn</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding-block: clamp(4rem, 10vw, 8rem) clamp(4rem, 9vw, 7rem); }
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+    opacity: 0.45;
+    mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 20%, transparent 75%);
+  }
+  .hero-inner { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: center; }
+  .kicker { color: var(--muted); margin: 0 0 1.25rem; font-size: var(--step--1); font-weight: 500; }
+  h1 { font-size: var(--step-4); letter-spacing: -0.035em; font-weight: 600; max-width: 14ch; text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; max-width: 38ch; margin: 1.5rem 0 2rem; }
+  .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* Featured project */
+  .featured {
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 16px;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    position: relative;
+  }
+  .featured::before {
+    content: ''; position: absolute; left: -1px; top: 2rem; bottom: 2rem; width: 2px;
+    background: var(--amber); border-radius: 2px;
+  }
+  .featured h3 { font-size: var(--step-3); }
+  .f-summary { font-size: var(--step-1); color: var(--text); margin: 0.75rem 0 1rem; line-height: 1.4; }
+  .f-main p:not(.f-summary) { color: #c4ccda; max-width: 60ch; }
+  .outcome { color: var(--amber) !important; font-weight: 500; }
+  .f-meta { margin: 0; display: grid; gap: 1.5rem; align-content: start; }
+  dt { color: var(--muted); font-size: var(--step--1); margin-bottom: 0.4rem; }
+  dd { margin: 0; }
+  .links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  /* Other projects */
+  .projects { list-style: none; padding: 0; margin: 2.5rem 0 0; }
+  .project {
+    display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 1.5rem 2.5rem;
+    padding-block: 1.75rem; border-top: 1px solid var(--rule);
+  }
+  .project:last-child { border-bottom: 1px solid var(--rule); }
+  .p-title h3 { font-size: var(--step-1); }
+  .p-title p { color: var(--muted); margin: 0.4rem 0 0; font-size: var(--step--1); }
+  .p-body p { margin: 0 0 0.6rem; color: #c4ccda; }
+  .p-body .chips { margin-top: 0.9rem; }
+  .p-links { display: flex; flex-direction: column; gap: 0.4rem; font-size: var(--step--1); font-weight: 500; text-align: right; }
+
+  /* Experience */
+  .two-col { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); }
+  .timeline { list-style: none; padding: 0; margin: 0 0 2rem; }
+  .timeline li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1.5rem; padding-bottom: 2rem; position: relative; }
+  .timeline li::before {
+    content: ''; position: absolute; left: 8.5rem; top: 0.55rem; bottom: -0.2rem;
+    width: 1px; background: var(--rule); transform: translateX(0.75rem);
+  }
+  .timeline li:last-child::before { display: none; }
+  .timeline li > div { position: relative; padding-left: 1.25rem; }
+  .timeline li > div::before {
+    content: ''; position: absolute; left: -0.75rem; top: 0.5rem; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--ink); border: 2px solid var(--muted); transform: translateX(-4px);
+  }
+  .timeline li:first-child > div::before { border-color: var(--amber); background: var(--amber); }
+  .period { margin: 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; padding-top: 0.25rem; }
+  .timeline h3 { font-size: var(--step-1); }
+  .at { color: var(--muted); font-weight: 400; }
+  .timeline p:not(.period) { margin: 0.4rem 0 0; color: #c4ccda; max-width: 58ch; }
+
+  .skills { border-left: 1px solid var(--rule); padding-left: clamp(1.5rem, 4vw, 3rem); }
+  .skills h2 { font-size: var(--step-3); margin-bottom: 2.5rem; }
+  .skill-group + .skill-group { margin-top: 1.75rem; }
+  .skill-group h3 { font-size: var(--step--1); color: var(--muted); font-weight: 500; letter-spacing: 0; margin-bottom: 0.6rem; }
+
+  /* Writing */
+  .all { color: var(--amber); font-weight: 500; text-decoration: none; }
+  .all:hover { text-decoration: underline; }
+  .posts { list-style: none; padding: 0; margin: 0; }
+  .posts a {
+    display: grid; grid-template-columns: 9rem 1fr; gap: 0.25rem 2rem;
+    padding-block: 1.4rem; border-top: 1px solid var(--rule); text-decoration: none;
+  }
+  .posts li:last-child a { border-bottom: 1px solid var(--rule); }
+  .posts time { grid-row: span 2; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; padding-top: 0.3rem; }
+  .post-title { font-size: var(--step-1); font-weight: 600; letter-spacing: -0.015em; transition: color 0.15s; }
+  .posts a:hover .post-title { color: var(--amber); }
+  .post-desc { color: var(--muted); }
+
+  /* Contact */
+  .contact h2 { font-size: var(--step-3); max-width: 18ch; }
+  .contact > .wrap > p { color: var(--muted); margin: 1rem 0 2rem; }
+  .mail {
+    display: inline-block; font-size: clamp(1.4rem, 0.8rem + 3.2vw, 3rem); font-weight: 600;
+    letter-spacing: -0.03em; text-decoration: none; color: var(--amber);
+    border-bottom: 2px solid var(--amber-dim); padding-bottom: 0.2rem; word-break: break-word;
+    transition: border-color 0.15s;
+  }
+  .mail:hover { border-color: var(--amber); }
+  .contact-links { display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 2rem 0 0; color: var(--muted); font-weight: 500; }
+
+  @media (max-width: 60rem) {
+    .hero-inner, .featured, .two-col { grid-template-columns: 1fr; }
+    .project { grid-template-columns: 1fr; gap: 0.9rem; }
+    .p-links { flex-direction: row; gap: 1.25rem; text-align: left; }
+    .skills { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 3rem; }
+  }
+  @media (max-width: 36rem) {
+    .timeline li { grid-template-columns: 1fr; gap: 0.25rem; padding-left: 1.25rem; }
+    .timeline li::before { left: 0; transform: none; top: 0.6rem; }
+    .timeline li > div { padding-left: 0; }
+    .timeline li > div::before { display: none; }
+    .timeline li .period::before {
+      content: ''; position: absolute; left: -4px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%;
+      background: var(--ink); border: 2px solid var(--muted);
+    }
+    .timeline li:first-child .period::before { background: var(--amber); border-color: var(--amber); }
+    .posts a { grid-template-columns: 1fr; }
+    .posts time { grid-row: auto; padding: 0; }
+  }
+</style>

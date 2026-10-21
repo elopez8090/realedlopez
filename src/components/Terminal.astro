@@ -1,0 +1,99 @@
+---
+import { site, terminal } from '../data/site';
+import { projects } from '../data/projects';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// A small "git log" built from your real content
+const log = [
+  ...projects.slice(0, 2).map((p) => ({ hash: hash(p.title), msg: `ship: ${p.title.toLowerCase()}` })),
+  ...posts.slice(0, 1).map((p) => ({ hash: hash(p.id), msg: `docs: ${p.data.title.toLowerCase()}` })),
+];
+
+function hash(s: string) {
+  let h = 5381;
+  for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0;
+  return h.toString(16).padStart(7, '0').slice(0, 7);
+}
+---
+
+<figure class="term" aria-label="Terminal summary">
+  <div class="chrome" aria-hidden="true">
+    <span></span><span></span><span></span>
+    <p>{site.domain}</p>
+  </div>
+  <div class="body">
+    <p class="l" style="--i:0"><span class="ps">$</span> whoami</p>
+    <p class="l out" style="--i:1">{site.name.toLowerCase()}, {site.role.toLowerCase()}</p>
+
+    <p class="l" style="--i:2"><span class="ps">$</span> cat stack.txt</p>
+    <p class="l out stack" style="--i:3">{terminal.stack.join('  ')}</p>
+
+    <p class="l" style="--i:4"><span class="ps">$</span> git log --oneline -3</p>
+    {log.map((c, n) => (
+      <p class="l out" style={`--i:${5 + n}`}>
+        <span class="hash">{c.hash}</span> {c.msg}
+      </p>
+    ))}
+
+    <p class="l" style={`--i:${5 + log.length}`}>
+      <span class="ps">$</span> status
+    </p>
+    <p class="l out" style={`--i:${6 + log.length}`}>
+      {site.available ? (
+        <><span class="dot" aria-hidden="true"></span> open to new work in {site.location.split(',')[0]} or remote</>
+      ) : (
+        <>heads down on current work</>
+      )}
+    </p>
+    <p class="l" style={`--i:${7 + log.length}`}>
+      <span class="ps">$</span> <span class="cursor" aria-hidden="true"></span>
+    </p>
+  </div>
+</figure>
+
+<style>
+  .term {
+    margin: 0;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    line-height: 1.75;
+    box-shadow: 0 30px 80px -30px #000c, 0 0 0 1px #ffffff05 inset;
+    overflow: hidden;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.7rem 1rem; border-bottom: 1px solid var(--rule);
+  }
+  .chrome span { width: 10px; height: 10px; border-radius: 50%; background: var(--rule); }
+  .chrome p { margin: 0 0 0 auto; color: var(--muted); font-size: 0.75rem; }
+  .body { padding: 1.1rem 1.25rem 1.3rem; overflow-x: auto; }
+  .l { margin: 0; white-space: pre-wrap; }
+  .out { color: var(--muted); }
+  .out + .l:not(.out) { margin-top: 0.6rem; }
+  .ps { color: var(--amber); }
+  .hash { color: var(--amber); opacity: 0.75; }
+  .stack { color: var(--text); }
+  .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ok); box-shadow: 0 0 0 3px #7fd4b52e; margin-right: 0.25rem; vertical-align: 1px;
+  }
+  .cursor {
+    display: inline-block; width: 0.55em; height: 1.05em; background: var(--amber);
+    vertical-align: -0.18em; animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* One orchestrated moment: the session prints line by line on load */
+  @media (prefers-reduced-motion: no-preference) {
+    .l { opacity: 0; animation: print 0.01s linear forwards; animation-delay: calc(var(--i) * 170ms + 250ms); }
+    .cursor { animation: blink 1.1s steps(1) infinite; }
+  }
+  @keyframes print { to { opacity: 1; } }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
