@@ -3,15 +3,15 @@
 // ─────────────────────────────────────────────────────────────
 
 export const site = {
-  name: 'Ed Lopez',
+  name: 'Eduardo Lopez',
   domain: 'realedlopez.com',
   url: 'https://realedlopez.com',
   role: 'Full-stack software engineer',
   location: 'New York, USA',
   // Shown in the browser tab and search results
-  title: 'Ed Lopez — Full-stack software engineer',
+  title: 'Eduardo Lopez — Full-stack software engineer',
   description:
-    'Ed Lopez is a full-stack software engineer who designs, builds, and ships reliable web applications with TypeScript, Node.js, React, and the cloud.',
+    'Eduardo Lopez is a full-stack software engineer who designs, builds, and ships reliable web applications with TypeScript, Node.js, React, and the cloud.',
   // Hero copy
   headline: 'I build web software that holds up in production.',
   intro:

@@ -1,6 +1,6 @@
 # realedlopez.com
 
-Personal site for Ed Lopez, built with [Astro](https://astro.build). Static, fast, and free to host.
+Personal site for Eduardo Lopez, built with [Astro](https://astro.build). Static, fast, and free to host.
 
 ## Run it locally
 
