@@ -120,13 +120,13 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     </div>
   </section>
 
-  <!-- Writing (shown only when there are published posts) -->
+  <!-- Notes (shown only when there are published posts) -->
   {posts.length > 0 && (
-  <section class="section" id="writing">
+  <section class="section" id="notes">
     <div class="wrap">
       <div class="section-head">
-        <h2>Writing</h2>
-        <a href="/blog/" class="all">All posts</a>
+        <h2>Notes</h2>
+        <a href="/blog/" class="all">All notes</a>
       </div>
       <ul class="posts">
         {posts.map((p) => (
@@ -241,7 +241,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
   .skill-group + .skill-group { margin-top: 1.75rem; }
   .skill-group h3 { font-size: var(--step--1); color: var(--muted); font-weight: 500; letter-spacing: 0; margin-bottom: 0.6rem; }
 
-  /* Writing */
+  /* Notes */
   .all { color: var(--amber); font-weight: 500; text-decoration: none; }
   .all:hover { text-decoration: underline; }
   .posts { list-style: none; padding: 0; margin: 0; }

@@ -6,7 +6,7 @@ const path = Astro.url.pathname;
 const links = [
   { href: '/#work', label: 'Work' },
   { href: '/#experience', label: 'How I work' },
-  ...(hasPosts ? [{ href: '/blog/', label: 'Writing' }] : []),
+  ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
   { href: '/#contact', label: 'Contact' },
 ];
 ---
@@ -19,7 +19,7 @@ const links = [
     <nav aria-label="Main">
       <ul>
         {links.map((l) => (
-          <li class={l.label === 'Writing' ? 'writing' : undefined}>
+          <li class={l.label === 'Notes' ? 'notes' : undefined}>
             <a href={l.href} aria-current={l.href === '/blog/' && path.startsWith('/blog') ? 'page' : undefined}>
               {l.label}
             </a>
@@ -55,6 +55,6 @@ const links = [
     .prompt { display: none; }
   }
   @media (max-width: 23rem) {
-    nav li.writing { display: none; }
+    nav li.notes { display: none; }
   }
 </style>
