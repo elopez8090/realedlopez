@@ -120,7 +120,8 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     </div>
   </section>
 
-  <!-- Writing -->
+  <!-- Writing (shown only when there are published posts) -->
+  {posts.length > 0 && (
   <section class="section" id="writing">
     <div class="wrap">
       <div class="section-head">
@@ -140,6 +141,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
       </ul>
     </div>
   </section>
+  )}
 
   <!-- Contact -->
   <section class="section contact" id="contact">

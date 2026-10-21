@@ -9,7 +9,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
 // A small "git log" built from your real content
 const log = [
-  ...projects.slice(0, 2).map((p) => ({ hash: hash(p.title), msg: `ship: ${p.title.toLowerCase()}` })),
+  ...projects.slice(0, posts.length ? 2 : 3).map((p) => ({ hash: hash(p.title), msg: `ship: ${p.title.toLowerCase()}` })),
   ...posts.slice(0, 1).map((p) => ({ hash: hash(p.id), msg: `docs: ${p.data.title.toLowerCase()}` })),
 ];
 

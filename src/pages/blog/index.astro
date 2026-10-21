@@ -15,7 +15,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     <p class="sub">Notes on building, shipping, and running software in production.</p>
 
     {posts.length === 0 ? (
-      <p class="empty">No posts yet. Add a Markdown file to <code>src/content/blog/</code> to publish your first one.</p>
+      <p class="empty">The first posts are on the way. In the meantime, <a href="/#work">see my work</a>.</p>
     ) : (
       <ul class="posts">
         {posts.map((p) => (

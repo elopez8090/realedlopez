@@ -3,6 +3,7 @@ title: How I cut an API's p95 latency from 1.8s to 120ms
 description: A practical walkthrough of profiling, caching, and query fixes on a production Node.js service.
 date: 2026-10-01
 tags: [node, performance, postgres]
+draft: true
 ---
 
 This is a sample post. Replace it with your own writing, or delete this file once you publish your first article. Posts live in `src/content/blog/` as Markdown files.
