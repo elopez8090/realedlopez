@@ -21,7 +21,7 @@ export const site = {
   resume: '/resume.pdf', // drop your résumé at public/resume.pdf
   social: {
     github: 'https://github.com/elopez8090',
-    linkedin: 'https://www.linkedin.com/in/your-username',
+    linkedin: 'https://www.linkedin.com/in/realedlopez/',
   },
 };
 
