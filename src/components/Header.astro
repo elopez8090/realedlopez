@@ -5,14 +5,15 @@ import logo from '../assets/logo.png';
 import { getCollection } from 'astro:content';
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const path = Astro.url.pathname;
-// `wide: true` links are hidden on small phones to keep the menu on one line.
 const links = [
   { href: '/#work', label: 'Work' },
   { href: '/services/', label: 'Services' },
-  { href: '/#experience', label: 'How I work', wide: true },
-  ...(hasPosts ? [{ href: '/blog/', label: 'Notes', wide: true }] : []),
+  { href: '/#experience', label: 'How I work' },
+  ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
   { href: '/#contact', label: 'Contact' },
 ];
+const current = (href: string) =>
+  (href === '/blog/' && path.startsWith('/blog')) || (href === '/services/' && path.startsWith('/services')) ? 'page' : undefined;
 ---
 
 <header class="header">
@@ -20,24 +21,44 @@ const links = [
     <a href="/" class="logo" aria-label={`${site.name}, home`}>
       <Image src={logo} alt={site.name} width={400} class="logo-img" loading="eager" />
     </a>
-    <nav aria-label="Main">
+
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-label">Menu</span>
+      <span class="bars" aria-hidden="true"><span></span><span></span></span>
+    </button>
+
+    <nav id="site-nav" class="nav" aria-label="Main">
       <ul>
         {links.map((l) => (
-          <li class={l.wide ? 'wide' : undefined}>
-            <a href={l.href} aria-current={(l.href === '/blog/' && path.startsWith('/blog')) || (l.href === '/services/' && path.startsWith('/services')) ? 'page' : undefined}>
-              {l.label}
-            </a>
-          </li>
+          <li><a href={l.href} aria-current={current(l.href)}>{l.label}</a></li>
         ))}
       </ul>
     </nav>
   </div>
 </header>
 
+<script>
+  const header = document.querySelector('.header');
+  const btn = header?.querySelector<HTMLButtonElement>('.menu-btn');
+  const setOpen = (open: boolean) => {
+    header?.classList.toggle('open', open);
+    btn?.setAttribute('aria-expanded', String(open));
+    const label = btn?.querySelector('.menu-label');
+    if (label) label.textContent = open ? 'Close' : 'Menu';
+  };
+  btn?.addEventListener('click', () => setOpen(!header?.classList.contains('open')));
+  // Close after choosing a link (including same-page links like /#work) or pressing Escape
+  header?.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header?.classList.contains('open')) { setOpen(false); btn?.focus(); }
+  });
+  matchMedia('(min-width: 48.01rem)').addEventListener('change', (e) => e.matches && setOpen(false));
+</script>
+
 <style>
   .header {
     position: sticky; top: 0; z-index: 5;
-    background: color-mix(in srgb, var(--ink) 82%, transparent);
+    background: color-mix(in srgb, var(--ink) 88%, transparent);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--rule);
@@ -45,14 +66,41 @@ const links = [
   .bar { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; gap: 1rem; }
   .logo { display: inline-flex; align-items: center; text-decoration: none; flex: none; }
   .logo-img { height: 30px; width: auto; display: block; }
-  ul { display: flex; gap: clamp(0.9rem, 3vw, 2rem); list-style: none; margin: 0; padding: 0; }
-  nav a { text-decoration: none; color: var(--muted); font-size: var(--step--1); font-weight: 500; transition: color 0.15s; }
-  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
-  @media (max-width: 40rem) {
-    .bar { height: 3.75rem; }
-    nav li.wide { display: none; }
-    ul { gap: 1rem; }
-    nav a { font-size: 0.9rem; }
-    .logo-img { height: 22px; }
+  .nav ul { display: flex; gap: clamp(0.9rem, 2.5vw, 2rem); list-style: none; margin: 0; padding: 0; }
+  .nav a { text-decoration: none; color: var(--muted); font-size: var(--step--1); font-weight: 500; transition: color 0.15s; white-space: nowrap; }
+  .nav a:hover, .nav a[aria-current='page'] { color: var(--text); }
+
+  .menu-btn { display: none; }
+
+  /* Phones and small tablets: logo + Menu button, links in a drop-down panel */
+  @media (max-width: 48rem) {
+    .bar { height: 3.75rem; position: relative; }
+    .logo-img { height: 24px; }
+    .menu-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: transparent; color: var(--text); font: inherit; font-size: 0.95rem; font-weight: 500;
+      border: 1px solid var(--rule); border-radius: 999px; padding: 0.45rem 0.9rem; cursor: pointer;
+    }
+    .bars { display: grid; gap: 4px; width: 16px; }
+    .bars span { height: 2px; background: currentColor; border-radius: 2px; transition: transform 0.2s; }
+    .open .bars span:first-child { transform: translateY(3px) rotate(45deg); }
+    .open .bars span:last-child { transform: translateY(-3px) rotate(-45deg); }
+
+    .nav {
+      display: none;
+      position: absolute; top: 100%; left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter));
+      background: var(--ink); border-bottom: 1px solid var(--rule);
+      padding: 0.5rem var(--gutter) 1.25rem;
+      box-shadow: 0 24px 40px -20px #000a;
+    }
+    .open .nav { display: block; }
+    .nav ul { flex-direction: column; gap: 0; }
+    .nav a {
+      display: block; padding: 0.9rem 0; font-size: 1.15rem; color: var(--text);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav li:last-child a { border-bottom: 0; }
+    .nav a[aria-current='page'] { color: var(--amber); }
   }
+  @media (prefers-reduced-motion: reduce) { .bars span { transition: none; } }
 </style>
