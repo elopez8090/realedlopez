@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
 ---
 
-<Base title={`Page not found | ${site.name}`}>
+<Base title={`Page not found | ${site.name}`} description="This page doesn't exist. Head back to the homepage to find what you need." noindex>
   <section class="wrap nf">
     <p class="cmd"><span>$</span> cd {Astro.url.pathname}</p>
     <p class="err">No such file or directory</p>

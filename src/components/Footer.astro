@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
     </div>
     <ul>
       <li><a href="/services/">Services</a></li>
-      <li><a href={site.social.linkedin} rel="me">LinkedIn</a></li>
+      {!site.social.linkedin.includes('your-username') && <li><a href={site.social.linkedin} rel="me">LinkedIn</a></li>}
     </ul>
   </div>
 </footer>

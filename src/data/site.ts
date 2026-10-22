@@ -9,13 +9,13 @@ export const site = {
   role: 'Full-stack software engineer',
   location: 'Cortlandt Manor, NY',
   // Shown in the browser tab and search results
-  title: 'Eduardo Lopez | Full-Stack Developer (Astro & Next.js)',
+  title: 'Eduardo Lopez | Web Developer in Westchester County, NY',
   description:
-    'Eduardo Lopez is an independent full-stack developer building fast, data-driven websites with Astro and Next.js, from the first idea to launch.',
+    'Eduardo Lopez is a web developer in Cortlandt Manor, NY, building fast, data-driven websites with Astro and Next.js for Westchester County businesses.',
   // Hero copy
   headline: 'I build web software that holds up in production.',
   intro:
-    'Independent full-stack developer. I build fast, data-driven websites with Astro and Next.js, from the first idea to launch and beyond.',
+    'Independent full-stack developer in Westchester County, NY. I build fast, data-driven websites with Astro and Next.js, from the first idea to launch and beyond.',
   available: true, // shows the "Open to new work" status in the hero
   email: 'eduardo@realedlopez.com',
   resume: '/resume.pdf', // drop your résumé at public/resume.pdf

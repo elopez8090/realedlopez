@@ -7,6 +7,7 @@ import { site, skills } from '../data/site';
 import { projects } from '../data/projects';
 import { intro as workIntro, steps } from '../data/experience';
 import { getCollection } from 'astro:content';
+import { businessSchema } from '../data/business';
 
 const featured = projects.find((p) => p.featured) ?? projects[0];
 const rest = projects.filter((p) => p !== featured);
@@ -18,7 +19,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 ---
 
-<Base>
+<Base schema={[businessSchema(`${site.url}/`)]}>
   <!-- Hero -->
   <section class="hero">
     <div class="grid-bg" aria-hidden="true"></div>
@@ -60,8 +61,11 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
           <div><dt>Role</dt><dd>{featured.role}</dd></div>
           <div><dt>Stack</dt><dd><ul class="chips">{featured.stack.map((s) => <li>{s}</li>)}</ul></dd></div>
           <div class="links">
-            {featured.live && <a class="btn btn-primary" href={featured.live}>Visit live site</a>}
-            {featured.repo && <a class="btn" href={featured.repo}>View source</a>}
+            <dt class="visually-hidden">Links</dt>
+            <dd>
+              {featured.live && <a class="btn btn-primary" href={featured.live}>Visit live site</a>}
+              {featured.repo && <a class="btn" href={featured.repo}>View source</a>}
+            </dd>
           </div>
         </dl>
       </article>
@@ -150,7 +154,9 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
       <p>I reply to every message within two business days.</p>
       <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
       <ul class="contact-links">
-        <li><a href={site.social.linkedin}>LinkedIn</a></li>
+        <li><a href="/services/">Services and pricing</a></li>
+        <li><a href="/web-design-westchester/">Web design in Westchester</a></li>
+        {!site.social.linkedin.includes('your-username') && <li><a href={site.social.linkedin}>LinkedIn</a></li>}
       </ul>
     </div>
   </section>
@@ -199,7 +205,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
   .f-meta { margin: 0; display: grid; gap: 1.5rem; align-content: start; }
   dt { color: var(--muted); font-size: var(--step--1); margin-bottom: 0.4rem; }
   dd { margin: 0; }
-  .links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .links dd { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0; }
 
   /* Other projects */
   .projects { list-style: none; padding: 0; margin: 2.5rem 0 0; }

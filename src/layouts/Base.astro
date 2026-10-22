@@ -14,6 +14,7 @@ interface Props {
   modifiedTime?: Date;
   tags?: string[];
   schema?: Record<string, unknown>[]; // extra structured data for this page
+  noindex?: boolean; // keep this page out of search results (404)
 }
 
 const {
@@ -24,6 +25,7 @@ const {
   modifiedTime,
   tags = [],
   schema = [],
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -69,7 +71,7 @@ const graph = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name} — Notes`} href="/rss.xml" />
