@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const path = Astro.url.pathname;
 const links = [
-  { href: '/#work', label: 'Projects' },
+  { href: '/#projects', label: 'Projects' },
   { href: '/services/', label: 'Services' },
   { href: '/#experience', label: 'How I work' },
   ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
@@ -47,7 +47,7 @@ const current = (href: string) =>
     if (label) label.textContent = open ? 'Close' : 'Menu';
   };
   btn?.addEventListener('click', () => setOpen(!header?.classList.contains('open')));
-  // Close after choosing a link (including same-page links like /#work) or pressing Escape
+  // Close after choosing a link (including same-page links like /#projects) or pressing Escape
   header?.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && header?.classList.contains('open')) { setOpen(false); btn?.focus(); }
