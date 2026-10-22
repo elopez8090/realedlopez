@@ -1,0 +1,189 @@
+---
+// Shared layout for town pages. Content comes from src/data/towns.ts.
+import Base from '../layouts/Base.astro';
+import Cta from './Cta.astro';
+import Faq from './Faq.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+import { study } from '../data/studies/northern-westchester-2026';
+import { townStats, MIN_SCORED } from '../data/studies/northern-westchester-towns';
+import { businessSchema, faqSchema } from '../data/business';
+import { townBySlug } from '../data/towns';
+
+interface Props { slug: string }
+const t = townBySlug(Astro.props.slug);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const local = townStats[t.statsKey];
+const ownNumbers = local && local.sitesScored >= MIN_SCORED;
+const nearby = t.nearby.map(townBySlug);
+const subject = `Free website check (${t.name})`;
+
+const schema = [
+  businessSchema(url),
+  faqSchema(t.faqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Westchester County', item: `${site.url}/web-design-westchester/` },
+      { '@type': 'ListItem', position: 3, name: t.name, item: url },
+    ],
+  },
+];
+---
+
+<Base title={t.title} description={t.description} schema={schema}>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/web-design-westchester/">Westchester County</a> <span aria-hidden="true">/</span> {t.name}
+    </nav>
+
+    <header class="intro">
+      <h1>{t.h1}</h1>
+      <p class="lede">{t.lede}</p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(subject)}`}>Get a free website check</a>
+    </header>
+
+    <section class="study" aria-labelledby="study-h">
+      {ownNumbers ? (
+        <>
+          <h2 id="study-h">I tested {local.sitesFound} {t.name} business websites on a phone</h2>
+          <p class="study-intro">
+            In {study.testedOn}, I ran every independent {t.name} business website I could find through Google’s
+            own PageSpeed test, set to a phone. It is part of a larger study of {study.sitesFound} businesses across
+            Northern Westchester.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <p class="num">{Math.round(local.medianScore)}<span>/100</span></p>
+              <p>Typical mobile speed score in {t.name}. Google rates 90 and above as good.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{local.metLcpTarget} of {local.sitesScored}</p>
+              <p>Sites that showed their main content within Google’s 2.5-second target.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{local.medianLcpSeconds.toFixed(1)} s</p>
+              <p>Typical wait before the main content appeared on the phone screen.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{local.brokenLinks === 0 ? 'None' : `${local.brokenLinks} of ${local.sitesFound}`}</p>
+              <p>{local.brokenLinks === 0 ? 'No broken website links. Every listed site responded.' : 'Website links that were broken: no response or “page not found.”'}</p>
+            </div>
+          </div>
+          <p class="compare">
+            Across all of Northern Westchester, the typical score was {study.medianScore}, and only {study.metLcpTarget} of {study.sitesScored} sites met Google’s target.
+            {local.medianScore < study.medianScore
+              ? ` ${t.name} came in below the regional typical score.`
+              : local.medianScore > study.medianScore
+                ? ` ${t.name} came in a little above the regional typical score, but still far from Google’s “good” range.`
+                : ''}
+          </p>
+        </>
+      ) : (
+        <>
+          <h2 id="study-h">How local business websites perform on phones</h2>
+          <p class="study-intro">
+            In {study.testedOn}, I tested {study.sitesFound} independent business websites across {t.name} and the
+            neighboring towns with Google’s own PageSpeed test, set to a phone. Fewer than {MIN_SCORED} were in
+            {' '}{t.name} itself, too few to report on their own, so these are the regional results.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <p class="num">{study.medianScore}<span>/100</span></p>
+              <p>Typical mobile speed score. Google rates 90 and above as good.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{study.metLcpTarget} of {study.sitesScored}</p>
+              <p>Sites that showed their main content within Google’s 2.5-second target.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{study.lcpOver10s}</p>
+              <p>Sites that took more than 10 seconds to show their main content.</p>
+            </div>
+            <div class="stat">
+              <p class="num">{study.noResponse + study.pageNotFound} of {study.sitesFound}</p>
+              <p>Website links that were broken: no response or “page not found.”</p>
+            </div>
+          </div>
+        </>
+      )}
+      <p class="caveat">
+        Most of these problems are fixable without starting over. Large images, too many plugins, and heavy fonts
+        cause most of the delay. <a href="/web-design-peekskill/#method-h">How the study was done</a>.
+      </p>
+    </section>
+
+    <section class="local" aria-labelledby="local-h">
+      <h2 id="local-h">{t.local.heading}</h2>
+      <p>{t.local.body}</p>
+    </section>
+
+    <section class="svc" aria-labelledby="svc-h">
+      <h2 id="svc-h">How I help {t.name} businesses</h2>
+      <ul>
+        {services.slice(0, 4).map((s) => (
+          <li>
+            <a href={`/services/#${s.id}`}>{s.title}</a>
+            <p>{s.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <slot />
+
+    <Faq faqs={t.faqs} />
+
+    <nav class="nearby" aria-label="Nearby areas">
+      <h2>Also serving nearby</h2>
+      <ul>
+        {nearby.map((n) => <li><a href={`/${n.slug}/`}>{n.name}</a></li>)}
+        <li><a href="/web-design-westchester/">All of Westchester County</a></li>
+      </ul>
+    </nav>
+
+    <Cta heading="Want to know how your site scored?" text="Send me your website address. I will run the same test and reply with your score and the changes that would help most, free." subject={subject} />
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(2.5rem, 7vw, 5rem); }
+  .crumbs { color: var(--muted); font-size: var(--step--1); margin-bottom: 1.5rem; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--amber); }
+  .intro { max-width: 46rem; }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  section, .nearby { margin-top: clamp(3rem, 7vw, 5rem); }
+  h2 { font-size: var(--step-2); text-wrap: balance; max-width: 30ch; }
+
+  .study-intro { color: #c4ccda; max-width: 60ch; margin: 1rem 0 2rem; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .stat { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; }
+  .stat p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .stat .num { font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem); font-weight: 600; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.4rem; }
+  .stat .num span { font-size: 0.5em; color: var(--muted); font-weight: 500; }
+  .stat:first-child .num { color: var(--amber); }
+  .compare { color: #c4ccda; max-width: 64ch; margin-top: 1.5rem; }
+  .caveat { color: var(--muted); max-width: 64ch; margin-top: 1rem; }
+  .caveat a { color: var(--amber); }
+
+  .local p { color: #c4ccda; max-width: 64ch; margin-top: 1rem; }
+
+  .svc ul { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+  .svc li { padding-block: 1.1rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 17rem 1fr; gap: 0.4rem 2rem; }
+  .svc li:last-child { border-bottom: 1px solid var(--rule); }
+  .svc a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  .svc a:hover { color: var(--amber); }
+  .svc p { margin: 0; color: var(--muted); }
+
+  .nearby h2 { font-size: var(--step-1); margin-bottom: 1rem; }
+  .nearby ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .nearby a { display: inline-block; border: 1px solid var(--rule); border-radius: 999px; padding: 0.4rem 0.9rem; text-decoration: none; font-size: 0.95rem; }
+  .nearby a:hover { border-color: var(--amber); color: var(--amber); }
+
+  @media (max-width: 60rem) { .stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 40rem) { .svc li { grid-template-columns: 1fr; } }
+  @media (max-width: 26rem) { .stats { grid-template-columns: 1fr; } }
+</style>

@@ -1,219 +1,61 @@
 ---
-import Base from '../layouts/Base.astro';
-import Cta from '../components/Cta.astro';
-import Faq from '../components/Faq.astro';
-import { site } from '../data/site';
-import { services } from '../data/services';
+import TownPage from '../components/TownPage.astro';
 import { study } from '../data/studies/northern-westchester-2026';
-import { businessSchema, faqSchema } from '../data/business';
-
-const url = new URL(Astro.url.pathname, Astro.site).href;
-const pct = (n: number, d: number) => Math.round((n / d) * 100);
-
-const faqs = [
-  {
-    q: 'Can you check my business website for free?',
-    a: 'Yes. Send me your website address and I will run the same Google test used in this study, then send you the score and the two or three changes that would help most. There is no obligation.',
-  },
-  {
-    q: 'Can we meet in Peekskill?',
-    a: 'Yes. I live in neighboring Cortlandt Manor and am happy to meet at your business or a coffee place downtown.',
-  },
-  {
-    q: 'My site is on Wix, Squarespace, or WordPress. Do I need to start over?',
-    a: 'Not always. Some sites get much faster with a few fixes to images, fonts, and apps. If a rebuild makes more sense, I keep your page addresses so you do not lose the Google rankings you already have.',
-  },
-  {
-    q: 'How much does a website cost?',
-    a: 'It depends on the size of the site. After a free call I send a fixed price in writing, so you know the full cost before any work starts.',
-  },
-];
-
-const schema = [
-  businessSchema(url),
-  faqSchema(faqs),
-  {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
-      { '@type': 'ListItem', position: 2, name: 'Westchester County', item: `${site.url}/web-design-westchester/` },
-      { '@type': 'ListItem', position: 3, name: 'Peekskill', item: url },
-    ],
-  },
-];
 ---
 
-<Base
-  title="Web Design in Peekskill, NY | Eduardo Lopez"
-  description="Web developer next door in Cortlandt Manor. I tested 63 Peekskill-area business websites: only 1 met Google's speed target on a phone."
-  schema={schema}
->
-  <div class="wrap page">
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="/web-design-westchester/">Westchester County</a> <span aria-hidden="true">/</span> Peekskill
-    </nav>
-
-    <header class="intro">
-      <h1>Web design for Peekskill businesses</h1>
-      <p class="lede">
-        I'm {site.name}, a web developer in Cortlandt Manor, right next door to Peekskill. I build fast,
-        mobile-friendly websites for local restaurants, shops, and service businesses, and I can meet you
-        downtown to plan yours.
-      </p>
-      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Free website check (Peekskill)')}`}>Get a free website check</a>
-    </header>
-
-    <section class="study" aria-labelledby="study-h">
-      <h2 id="study-h">I tested {study.sitesFound} local business websites. Most are slow on phones.</h2>
-      <p class="study-intro">
-        In {study.testedOn}, I ran every independent business website I could find in Peekskill and the
-        surrounding towns through Google's own PageSpeed test, set to a phone. This is what customers
-        searching on their phones run into.
-      </p>
-
-      <div class="stats">
-        <div class="stat">
-          <p class="num">{study.medianScore}<span>/100</span></p>
-          <p>Typical mobile speed score. Google rates 90 and above as good.</p>
-        </div>
-        <div class="stat">
-          <p class="num">{study.metLcpTarget} of {study.sitesScored}</p>
-          <p>Sites that showed their main content within Google's 2.5-second target.</p>
-        </div>
-        <div class="stat">
-          <p class="num">{study.lcpOver10s}</p>
-          <p>Sites that took more than 10 seconds to show their main content.</p>
-        </div>
-        <div class="stat">
-          <p class="num">{study.noResponse + study.pageNotFound} of {study.sitesFound}</p>
-          <p>Website links that were broken: {study.noResponse} did not respond and {study.pageNotFound} led to "page not found."</p>
-        </div>
-      </div>
-
-      <h3>By type of business</h3>
-      <table>
-        <thead>
-          <tr><th scope="col">Type of business</th><th scope="col">Sites scored</th><th scope="col">Typical score</th><th scope="col">Typical time to main content</th></tr>
-        </thead>
-        <tbody>
-          {study.byCategory.map((c) => (
-            <tr><td>{c.name}</td><td>{c.scored}</td><td>{Math.round(c.median)}</td><td>{c.medianLcp.toFixed(1)} s</td></tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h3>What this means if you run a business here</h3>
-      <ul class="points">
-        <li>
-          <strong>Restaurants feel it most.</strong> People look up a menu or hours on their phone, often on the
-          way. Local restaurant sites took a typical {study.byCategory[0].medianLcp.toFixed(1)} seconds to show
-          their main content in this test.
-        </li>
-        <li>
-          <strong>Google notices speed.</strong> Page experience on phones is part of how Google evaluates
-          sites, so a slow site can lose ground to a faster competitor down the street.
-        </li>
-        <li>
-          <strong>Broken links cost customers quietly.</strong> {study.noResponse + study.pageNotFound} of the
-          website links listed for local businesses on the map did not work. If yours is one of them, people
-          tapping it see an error instead of your business.
-        </li>
-        <li>
-          <strong>Layout jumps are common.</strong> On {study.layoutShiftPct}% of sites, the page shifted
-          noticeably while loading, which leads to mis-taps on phones.
-        </li>
-      </ul>
-      <p class="caveat">
-        The good news: most of these problems are fixable without starting over. Large images, too many
-        plugins, and heavy fonts cause most of the delay.
-      </p>
-    </section>
-
-    <section class="svc" aria-labelledby="svc-h">
-      <h2 id="svc-h">How I help Peekskill businesses</h2>
-      <ul>
-        {services.slice(0, 4).map((s) => (
-          <li>
-            <a href={`/services/#${s.id}`}>{s.title}</a>
-            <p>{s.summary}</p>
-          </li>
+<TownPage slug="web-design-peekskill">
+  <section class="regional" aria-labelledby="regional-h">
+    <h2 id="regional-h">The regional picture, by type of business</h2>
+    <p>
+      The full study covered {study.sitesFound} independent businesses across Peekskill and its neighbors.
+      Here is how each type of business did.
+    </p>
+    <table>
+      <thead>
+        <tr><th scope="col">Type of business</th><th scope="col">Sites scored</th><th scope="col">Typical score</th><th scope="col">Typical time to main content</th></tr>
+      </thead>
+      <tbody>
+        {study.byCategory.map((c) => (
+          <tr><td>{c.name}</td><td>{c.scored}</td><td>{Math.round(c.median)}</td><td>{c.medianLcp.toFixed(1)} s</td></tr>
         ))}
-      </ul>
-    </section>
+      </tbody>
+    </table>
 
-    <section class="local" aria-labelledby="local-h">
-      <h2 id="local-h">Local, and easy to reach</h2>
-      <p>
-        I live a few minutes away in Cortlandt Manor and work with businesses across Peekskill, from the shops
-        and restaurants around Main Street and Division Street to service businesses throughout the city. I also
-        work in <a href="/web-design-westchester/">Cortlandt, Yorktown, Croton-on-Hudson, and the rest of
-        Westchester County</a>.
-      </p>
-    </section>
+    <h3>What this means if you run a business here</h3>
+    <ul class="points">
+      <li><strong>Restaurants feel it most.</strong> People look up a menu or hours on their phone, often on the way. Restaurant sites in the region took a typical {study.byCategory[0].medianLcp.toFixed(1)} seconds to show their main content.</li>
+      <li><strong>Google notices speed.</strong> Page experience on phones is part of how Google evaluates sites, so a slow site can lose ground to a faster competitor down the street.</li>
+      <li><strong>Broken links cost customers quietly.</strong> {study.noResponse + study.pageNotFound} of the {study.sitesFound} website links listed for local businesses on the map did not work.</li>
+      <li><strong>Layout jumps are common.</strong> On {study.layoutShiftPct}% of sites, the page shifted noticeably while loading, which leads to mis-taps on phones.</li>
+    </ul>
+  </section>
 
-    <section class="method" aria-labelledby="method-h">
-      <h2 id="method-h">How the study was done</h2>
-      <p>
-        I collected every business in {study.area} that lists a website on OpenStreetMap, the public map
-        database, and left out national chains, regional chains, and government pages. That left{' '}
-        {study.sitesFound} independent local businesses and organizations. I tested each homepage once with
-        Google PageSpeed Insights using its mobile setting, which simulates a mid-range phone on a slow 4G
-        connection. Visitors on fast Wi-Fi will see quicker loads, but every site was measured the same way.
-        Results are reported as totals only, and no business is named.
-      </p>
-    </section>
-
-    <Faq faqs={faqs} />
-    <Cta heading="Want to know how your site scored?" text="Send me your website address. I will run the same test and reply with your score and the changes that would help most, free." subject="Free website check (Peekskill)" />
-  </div>
-</Base>
+  <section class="method" aria-labelledby="method-h">
+    <h2 id="method-h">How the study was done</h2>
+    <p>
+      I collected every business in {study.area} that lists a website on OpenStreetMap, the public map database,
+      and left out national chains, regional chains, and government pages. That left {study.sitesFound} independent
+      local businesses and organizations. I tested each homepage once with Google PageSpeed Insights using its mobile
+      setting, which simulates a mid-range phone on a slow 4G connection. Visitors on fast Wi-Fi will see quicker
+      loads, but every site was measured the same way. Each business was assigned to a town by its map location.
+      Results are reported as totals only, and no business is named.
+    </p>
+  </section>
+</TownPage>
 
 <style>
-  .page { padding-block: clamp(2.5rem, 7vw, 5rem); }
-  .crumbs { color: var(--muted); font-size: var(--step--1); margin-bottom: 1.5rem; }
-  .crumbs a { color: var(--muted); }
-  .crumbs a:hover { color: var(--amber); }
-  .intro { max-width: 46rem; }
-  h1 { font-size: var(--step-4); text-wrap: balance; }
-  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
   section { margin-top: clamp(3rem, 7vw, 5rem); }
   h2 { font-size: var(--step-2); text-wrap: balance; max-width: 30ch; }
   h3 { font-size: var(--step-1); margin: 2.5rem 0 1rem; }
-
-  .study-intro { color: #c4ccda; max-width: 60ch; margin: 1rem 0 2rem; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  .stat { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; }
-  .stat p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-  .stat .num { font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem); font-weight: 600; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.4rem; }
-  .stat .num span { font-size: 0.5em; color: var(--muted); font-weight: 500; }
-  .stat:first-child .num { color: var(--amber); }
-
+  .regional > p, .method p { color: #c4ccda; max-width: 64ch; margin: 1rem 0 1.5rem; }
+  .method p { color: var(--muted); font-size: 0.95rem; }
   table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; max-width: 48rem; }
   th, td { text-align: left; padding: 0.7rem 0.75rem; border-bottom: 1px solid var(--rule); }
   th { color: var(--muted); font-weight: 500; font-size: var(--step--1); }
   td:not(:first-child), th:not(:first-child) { text-align: right; }
-
   .points { max-width: 64ch; padding-left: 1.1rem; color: #c4ccda; }
   .points li + li { margin-top: 0.9rem; }
   .points li::marker { color: var(--amber); }
   .points strong { color: var(--text); }
-  .caveat { color: var(--muted); max-width: 64ch; margin-top: 1.5rem; }
-
-  .svc ul { list-style: none; padding: 0; margin: 1.5rem 0 0; }
-  .svc li { padding-block: 1.1rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 17rem 1fr; gap: 0.4rem 2rem; }
-  .svc li:last-child { border-bottom: 1px solid var(--rule); }
-  .svc a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
-  .svc a:hover { color: var(--amber); }
-  .svc p { margin: 0; color: var(--muted); }
-
-  .local p, .method p { color: #c4ccda; max-width: 64ch; margin-top: 1rem; }
-  .local a { color: var(--amber); }
-  .method p { color: var(--muted); font-size: 0.95rem; }
-
-  @media (max-width: 60rem) { .stats { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 40rem) {
-    .svc li { grid-template-columns: 1fr; }
-    th, td { padding: 0.55rem 0.4rem; font-size: 0.85rem; }
-  }
-  @media (max-width: 26rem) { .stats { grid-template-columns: 1fr; } }
+  @media (max-width: 40rem) { th, td { padding: 0.55rem 0.4rem; font-size: 0.85rem; } }
 </style>
