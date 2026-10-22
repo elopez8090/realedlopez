@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const path = Astro.url.pathname;
 const links = [
-  { href: '/#work', label: 'Work' },
+  { href: '/#work', label: 'Projects' },
   { href: '/services/', label: 'Services' },
   { href: '/#experience', label: 'How I work' },
   ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
