@@ -1,0 +1,31 @@
+---
+import { site } from '../data/site';
+interface Props { heading?: string; text?: string; subject?: string }
+const {
+  heading = 'Tell me about your project',
+  text = 'Send a few lines about your business and what you need. I reply within two business days with next steps.',
+  subject = 'Website project',
+} = Astro.props;
+---
+
+<section class="cta">
+  <h2>{heading}</h2>
+  <p>{text}</p>
+  <div class="row">
+    <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(subject)}`}>Get a free quote</a>
+    <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding: clamp(1.75rem, 5vw, 3rem);
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 16px;
+  }
+  h2 { font-size: var(--step-2); }
+  p { color: #c4ccda; max-width: 52ch; margin: 0.75rem 0 1.5rem; }
+  .row { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .mail { color: var(--amber); font-weight: 500; text-decoration: none; }
+  .mail:hover { text-decoration: underline; }
+</style>

@@ -5,8 +5,12 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="wrap row">
-    <p>© {year} {site.name}. Built with Astro.</p>
-        <ul>
+    <div>
+      <p>© {year} {site.name}. Built with Astro.</p>
+      <p class="area">Web developer in Cortlandt Manor, serving <a href="/web-design-westchester/">Westchester County, NY</a>.</p>
+    </div>
+    <ul>
+      <li><a href="/services/">Services</a></li>
       <li><a href={site.social.linkedin} rel="me">LinkedIn</a></li>
     </ul>
   </div>
@@ -16,6 +20,8 @@ const year = new Date().getFullYear();
   .footer { border-top: 1px solid var(--rule); padding-block: 2rem; color: var(--muted); font-size: var(--step--1); }
   .row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
   p { margin: 0; }
+  .area { margin-top: 0.35rem; }
+  .area a { text-decoration: underline; text-decoration-color: var(--rule); }
   ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
   a { text-decoration: none; }
   a:hover { color: var(--text); }

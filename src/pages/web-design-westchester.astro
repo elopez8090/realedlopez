@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { projects } from '../data/projects';
+import { services, faqs } from '../data/services';
+import { regions } from '../data/westchester';
+import { businessSchema, faqSchema } from '../data/business';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const localFaqs = [
+  {
+    q: 'Do you only work with businesses in Westchester?',
+    a: 'No. Westchester is home, so I can meet in person here, but I also build sites for clients anywhere in the U.S. over video calls.',
+  },
+  ...faqs,
+];
+const schema = [
+  businessSchema(url),
+  faqSchema(localFaqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Westchester County', item: url },
+    ],
+  },
+];
+const placeCount = regions.reduce((n, r) => n + r.places.length, 0);
+---
+
+<Base
+  title="Web Design & Development in Westchester County, NY"
+  description="Local web developer in Cortlandt Manor building fast, mobile-friendly websites for Westchester County businesses, from Peekskill and Yorktown to White Plains."
+  schema={schema}
+>
+  <div class="wrap page">
+    <header class="intro">
+      <h1>Web design and development in Westchester County, NY</h1>
+      <p class="lede">
+        I'm {site.name}, an independent web developer based in Cortlandt Manor. I build fast, professional websites
+        for Westchester businesses and organizations, and I can meet you in person anywhere in the county.
+      </p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Website project in Westchester')}`}>Get a free quote</a>
+    </header>
+
+    <section class="why" aria-labelledby="why-h">
+      <h2 id="why-h">Why work with a local developer</h2>
+      <div class="cols">
+        <div>
+          <h3>One person, start to finish</h3>
+          <p>You talk directly to the person designing and building your site. No account managers, no handoffs, and no offshore team you never meet.</p>
+        </div>
+        <div>
+          <h3>Meet in person</h3>
+          <p>We can sit down at your shop, office, or a coffee place in town to plan the site. It is easier to get it right when I see how your business actually works.</p>
+        </div>
+        <div>
+          <h3>Built to be found locally</h3>
+          <p>Your site launches with the setup Google needs to show it for searches in your town, and I help you set up your Google Business Profile so you appear on the map.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc" aria-labelledby="svc-h">
+      <h2 id="svc-h">What I build for Westchester businesses</h2>
+      <ul>
+        {services.map((s) => (
+          <li>
+            <a href={`/services/#${s.id}`}>{s.title}</a>
+            <p>{s.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="work" aria-labelledby="work-h">
+      <h2 id="work-h">Recent work</h2>
+      <ul>
+        {projects.map((p) => (
+          <li>
+            <a href={p.live}>{p.title}</a>
+            <p>{p.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="areas" aria-labelledby="areas-h">
+      <h2 id="areas-h">Areas I serve</h2>
+      <p class="areas-intro">
+        I work with businesses in all {placeCount} cities, towns, villages, and hamlets listed below, and anywhere else in Westchester County.
+      </p>
+      {regions.map((r) => (
+        <div class="region">
+          <h3>{r.name}</h3>
+          <p>{r.blurb}</p>
+          <ul>
+            {r.places.map((pl) => (
+              <li class={pl.name === 'Cortlandt Manor' ? 'home' : undefined}>
+                {pl.page ? <a href={pl.page}>{pl.name}</a> : pl.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <Faq faqs={localFaqs} />
+    <Cta heading="Have a project in Westchester?" subject="Website project in Westchester" />
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .intro { max-width: 48rem; }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  section { margin-top: clamp(3rem, 7vw, 5rem); }
+  h2 { font-size: var(--step-2); margin-bottom: 1.5rem; }
+
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .cols h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .cols p { color: #c4ccda; margin: 0; }
+
+  .svc ul, .work ul { list-style: none; padding: 0; margin: 0; }
+  .svc li, .work li { padding-block: 1.1rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 17rem 1fr; gap: 0.4rem 2rem; }
+  .svc li:last-child, .work li:last-child { border-bottom: 1px solid var(--rule); }
+  .svc a, .work a { font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  .svc a:hover, .work a:hover { color: var(--amber); }
+  .svc p, .work p { margin: 0; color: var(--muted); }
+
+  .areas-intro { color: #c4ccda; max-width: 56ch; margin: -0.5rem 0 2rem; }
+  .region + .region { margin-top: 2.25rem; }
+  .region h3 { font-size: var(--step-1); }
+  .region > p { color: var(--muted); margin: 0.4rem 0 1rem; max-width: 60ch; }
+  .region ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .region li { border: 1px solid var(--rule); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.92rem; color: #c4ccda; }
+  .region li.home { border-color: var(--amber); color: var(--text); }
+
+  @media (max-width: 48rem) {
+    .cols { grid-template-columns: 1fr; gap: 1.5rem; }
+    .svc li, .work li { grid-template-columns: 1fr; }
+  }
+</style>

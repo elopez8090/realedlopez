@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { services, steps, faqs } from '../data/services';
+import { businessSchema, faqSchema } from '../data/business';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const schema = [
+  businessSchema(url),
+  faqSchema(faqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: url },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Web Design & Development Services | ${site.name}`}
+  description="Fast, mobile-friendly websites, redesigns, directories, and custom web apps for small businesses. Based in Cortlandt Manor, serving Westchester County, NY."
+  schema={schema}
+>
+  <div class="wrap page">
+    <header class="intro">
+      <h1>Web design and development services</h1>
+      <p class="lede">
+        I design and build fast, professional websites for small businesses and organizations. I work from Cortlandt
+        Manor, meet clients anywhere in <a href="/web-design-westchester/">Westchester County</a>, and work remotely
+        with clients across the U.S.
+      </p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Website project')}`}>Get a free quote</a>
+    </header>
+
+    <section aria-labelledby="what-h">
+      <h2 id="what-h" class="visually-hidden">What I build</h2>
+      <ul class="services">
+        {services.map((s) => (
+          <li id={s.id}>
+            <h3>{s.title}</h3>
+            <p>{s.summary}</p>
+            <ul class="includes">{s.includes.map((i) => <li>{i}</li>)}</ul>
+            {s.example && <a class="example" href={s.example.href}>{s.example.label}</a>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="process" aria-labelledby="process-h">
+      <h2 id="process-h">How a project works</h2>
+      <ol>
+        {steps.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="proof" aria-labelledby="proof-h">
+      <h2 id="proof-h">Work I have built</h2>
+      <p>
+        Every project I show is a live site I designed and built myself: a hail history lookup covering five
+        states, a bilingual baseball stats site with thousands of pages, and a national homeschool directory.{' '}
+        <a href="/#work">See the projects</a>.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} />
+    <Cta />
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .intro { max-width: 46rem; margin-bottom: clamp(3rem, 7vw, 4.5rem); }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  .lede a, .proof a { color: var(--amber); }
+  h2 { font-size: var(--step-2); }
+
+  .services { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .services > li { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: clamp(1.25rem, 3vw, 2rem); }
+  .services > li:first-child { grid-column: 1 / -1; border-color: #f5b83d66; }
+  .services h3 { font-size: var(--step-1); }
+  .services p { color: #c4ccda; margin: 0.6rem 0 1rem; }
+  .includes { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.95rem; }
+  .includes li + li { margin-top: 0.35rem; }
+  .includes li::marker { color: var(--amber); }
+  .example { display: inline-block; margin-top: 1rem; color: var(--amber); font-weight: 500; font-size: var(--step--1); }
+
+  .process { margin-top: clamp(3rem, 7vw, 5rem); }
+  .process ol { list-style: none; counter-reset: step; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+  .process li { counter-increment: step; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  .process li:first-child { border-color: var(--amber); }
+  .process li::before { content: counter(step); font-family: var(--mono); color: var(--amber); font-size: 0.85rem; }
+  .process h3 { font-size: 1.1rem; margin: 0.35rem 0 0.4rem; }
+  .process p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  .proof { margin-top: clamp(3rem, 7vw, 5rem); max-width: 46rem; }
+  .proof p { color: #c4ccda; margin: 0.75rem 0 0; }
+
+  @media (max-width: 60rem) {
+    .process ol { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 40rem) {
+    .services { grid-template-columns: 1fr; }
+    .process ol { grid-template-columns: 1fr; }
+  }
+</style>

@@ -53,7 +53,7 @@ const graph = [
     image: photoUrl,
     jobTitle: site.role,
     email: `mailto:${site.email}`,
-    address: { '@type': 'PostalAddress', addressLocality: site.location.split(',')[0], addressCountry: 'US' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Cortlandt Manor', addressRegion: 'NY', addressCountry: 'US' },
     knowsAbout: [...new Set(skills.flatMap((g) => g.items))],
     sameAs,
   },

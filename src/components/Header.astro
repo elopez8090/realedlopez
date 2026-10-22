@@ -5,10 +5,12 @@ import logo from '../assets/logo.png';
 import { getCollection } from 'astro:content';
 const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
 const path = Astro.url.pathname;
+// `wide: true` links are hidden on small phones to keep the menu on one line.
 const links = [
   { href: '/#work', label: 'Work' },
-  { href: '/#experience', label: 'How I work' },
-  ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
+  { href: '/services/', label: 'Services' },
+  { href: '/#experience', label: 'How I work', wide: true },
+  ...(hasPosts ? [{ href: '/blog/', label: 'Notes', wide: true }] : []),
   { href: '/#contact', label: 'Contact' },
 ];
 ---
@@ -21,8 +23,8 @@ const links = [
     <nav aria-label="Main">
       <ul>
         {links.map((l) => (
-          <li class={l.label === 'Notes' ? 'notes' : undefined}>
-            <a href={l.href} aria-current={l.href === '/blog/' && path.startsWith('/blog') ? 'page' : undefined}>
+          <li class={l.wide ? 'wide' : undefined}>
+            <a href={l.href} aria-current={(l.href === '/blog/' && path.startsWith('/blog')) || (l.href === '/services/' && path.startsWith('/services')) ? 'page' : undefined}>
               {l.label}
             </a>
           </li>
@@ -46,14 +48,11 @@ const links = [
   ul { display: flex; gap: clamp(0.9rem, 3vw, 2rem); list-style: none; margin: 0; padding: 0; }
   nav a { text-decoration: none; color: var(--muted); font-size: var(--step--1); font-weight: 500; transition: color 0.15s; }
   nav a:hover, nav a[aria-current='page'] { color: var(--text); }
-  @media (max-width: 30rem) {
+  @media (max-width: 40rem) {
     .bar { height: 3.75rem; }
-    nav li:nth-child(2) { display: none; }
+    nav li.wide { display: none; }
     ul { gap: 1rem; }
     nav a { font-size: 0.9rem; }
     .logo-img { height: 22px; }
-  }
-  @media (max-width: 23rem) {
-    nav li.notes { display: none; }
   }
 </style>

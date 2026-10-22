@@ -7,7 +7,7 @@ export const site = {
   domain: 'realedlopez.com',
   url: 'https://realedlopez.com',
   role: 'Full-stack software engineer',
-  location: 'New York, USA',
+  location: 'Cortlandt Manor, NY',
   // Shown in the browser tab and search results
   title: 'Eduardo Lopez | Full-Stack Developer (Astro & Next.js)',
   description:
