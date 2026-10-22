@@ -7,11 +7,13 @@ export interface Service {
   summary: string;
   includes: string[];
   example?: { label: string; href: string };
+  price: string;
 }
 
 export const services: Service[] = [
   {
     id: 'small-business-websites',
+    price: 'From $2,500',
     title: 'Websites for small businesses',
     summary:
       'A fast, professional website that looks right on every phone, explains what you do in plain words, and is set up so Google can find it.',
@@ -25,6 +27,7 @@ export const services: Service[] = [
   },
   {
     id: 'redesigns',
+    price: 'Speed fixes from $750',
     title: 'Redesigns and speed fixes',
     summary:
       'If your current site is slow, dated, or hard to use on a phone, I can rebuild it or fix what is holding it back, while keeping the pages Google already knows.',
@@ -37,6 +40,7 @@ export const services: Service[] = [
   },
   {
     id: 'directories-and-data',
+    price: 'From $8,000',
     title: 'Directory and data-driven websites',
     summary:
       'Sites built on lists or data: business and program directories, local guides, lookup tools, maps, and stats sites with hundreds or thousands of pages.',
@@ -50,6 +54,7 @@ export const services: Service[] = [
   },
   {
     id: 'web-apps',
+    price: 'From $12,000',
     title: 'Custom web apps',
     summary:
       'When a website needs accounts, forms, or a dashboard, I build it with Next.js so it stays fast and easy to grow.',
@@ -62,12 +67,29 @@ export const services: Service[] = [
   },
   {
     id: 'care',
+    price: '$75 to $200 a month',
     title: 'Ongoing care',
     summary:
       'After launch, I can handle updates, new pages, and fixes, so you can focus on running your business.',
     includes: ['Content and page updates', 'Uptime and speed checks', 'Search Console monitoring and fixes'],
   },
 ];
+
+export const pricing = [
+  { item: 'Starter site', detail: 'Up to 5 pages, such as home, services, about, and contact', price: 'From $2,500' },
+  { item: 'Business site', detail: '6 to 12 pages, a page for each service, Google Business Profile setup', price: '$4,000 to $7,500' },
+  { item: 'Speed and mobile fix', detail: 'Make your current site fast on phones, without a redesign', price: 'From $750' },
+  { item: 'Redesign', detail: 'A new site that keeps the page addresses Google already knows', price: 'Same as a new site' },
+  { item: 'English and Spanish', detail: 'A real Spanish version of every page, not automatic translation', price: 'Add 40%' },
+  { item: 'Directory or data-driven site', detail: 'Listings, search, maps, submissions, automatic data updates', price: 'From $8,000' },
+  { item: 'Custom web app', detail: 'Accounts, forms, and dashboards', price: 'From $12,000' },
+  { item: 'Website care plan', detail: 'Updates, small edits, speed and uptime checks', price: '$75 to $200 a month' },
+  { item: 'Changes outside a plan', detail: 'Small updates and fixes', price: '$95 an hour' },
+];
+
+// Founding-client offer. Delete or set to null when the three spots are filled.
+export const foundingOffer: string | null =
+  'Founding clients: my first three Westchester clients get 20% off any new site, in exchange for letting me feature the project.';
 
 export const steps = [
   { title: 'Free call', detail: 'A 30-minute call, by phone, video, or in person in Westchester, to talk about your business and what the site needs to do.' },
@@ -80,7 +102,7 @@ export const steps = [
 export const faqs = [
   {
     q: 'How much does a website cost?',
-    a: 'It depends on how many pages and features you need. After a free call, I send a fixed price in writing, so you know the full cost before any work starts.',
+    a: 'Starter sites begin at $2,500, and most business sites run $4,000 to $7,500, depending on the number of pages and features. After a free call, I send a fixed price in writing, so you know the full cost before any work starts.',
   },
   {
     q: 'How long does it take?',

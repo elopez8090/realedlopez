@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
 import Faq from '../components/Faq.astro';
 import { site } from '../data/site';
-import { services, steps, faqs } from '../data/services';
+import { services, steps, faqs, pricing, foundingOffer } from '../data/services';
 import { businessSchema, faqSchema } from '../data/business';
 
 const url = new URL(Astro.url.pathname, Astro.site).href;
@@ -42,12 +42,34 @@ const schema = [
         {services.map((s) => (
           <li id={s.id}>
             <h3>{s.title}</h3>
+            <p class="price">{s.price}</p>
             <p>{s.summary}</p>
             <ul class="includes">{s.includes.map((i) => <li>{i}</li>)}</ul>
             {s.example && <a class="example" href={s.example.href}>{s.example.label}</a>}
           </li>
         ))}
       </ul>
+    </section>
+
+    <section class="pricing" aria-labelledby="pricing-h">
+      <h2 id="pricing-h">Pricing</h2>
+      <p class="pricing-intro">
+        Every project gets a fixed price in writing after a free call. These are typical starting points, so you know
+        what to expect before we talk.
+      </p>
+      <table>
+        <thead><tr><th scope="col">What you need</th><th scope="col">Price</th></tr></thead>
+        <tbody>
+          {pricing.map((r) => (
+            <tr>
+              <td><strong>{r.item}</strong><span>{r.detail}</span></td>
+              <td>{r.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {foundingOffer && <p class="founding">{foundingOffer}</p>}
+      <p class="pricing-note">Hosting for the sites I build usually costs little or nothing. You pay for your domain name directly, typically about $10 to $20 a year.</p>
     </section>
 
     <section class="process" aria-labelledby="process-h">
@@ -93,6 +115,21 @@ const schema = [
   .includes li + li { margin-top: 0.35rem; }
   .includes li::marker { color: var(--amber); }
   .example { display: inline-block; margin-top: 1rem; color: var(--amber); font-weight: 500; font-size: var(--step--1); }
+
+  .services .price { color: var(--amber); font-weight: 600; font-size: var(--step--1); margin: 0.35rem 0 0; }
+
+  .pricing { margin-top: clamp(3rem, 7vw, 5rem); max-width: 52rem; }
+  .pricing-intro { color: #c4ccda; max-width: 60ch; margin: 0.75rem 0 1.5rem; }
+  .pricing table { width: 100%; border-collapse: collapse; }
+  .pricing th, .pricing td { text-align: left; padding: 0.9rem 0.75rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .pricing th { color: var(--muted); font-weight: 500; font-size: var(--step--1); }
+  .pricing th:last-child, .pricing td:last-child { text-align: right; white-space: nowrap; }
+  .pricing td strong { display: block; font-weight: 600; }
+  .pricing td span { display: block; color: var(--muted); font-size: 0.92rem; margin-top: 0.2rem; }
+  .pricing td:last-child { color: var(--amber); font-weight: 600; }
+  .founding { margin: 1.5rem 0 0; padding: 1rem 1.25rem; border: 1px solid #f5b83d66; border-radius: 12px; background: var(--amber-dim); color: var(--text); }
+  .pricing-note { color: var(--muted); font-size: 0.92rem; margin-top: 1rem; }
+  @media (max-width: 30rem) { .pricing td:last-child { white-space: normal; } .pricing th, .pricing td { padding: 0.75rem 0.4rem; } }
 
   .process { margin-top: clamp(3rem, 7vw, 5rem); }
   .process ol { list-style: none; counter-reset: step; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
