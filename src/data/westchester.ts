@@ -22,7 +22,7 @@ export const regions: Region[] = [
     blurb: 'My home base. I can meet in person anywhere from Peekskill and Croton to Yorktown, Somers, and Bedford.',
     places: [
       { name: 'Cortlandt Manor', kind: 'hamlet' },
-      { name: 'Peekskill', kind: 'city' },
+      { name: 'Peekskill', kind: 'city', page: '/web-design-peekskill/' },
       { name: 'Cortlandt', kind: 'town' },
       { name: 'Croton-on-Hudson', kind: 'village' },
       { name: 'Buchanan', kind: 'village' },
