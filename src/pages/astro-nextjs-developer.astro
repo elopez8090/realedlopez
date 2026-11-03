@@ -1,0 +1,260 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { faqSchema } from '../data/business';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+
+const who = [
+  { title: 'Founders and small businesses', text: 'You need a fast site or a first version of a product, built and launched by one developer who handles everything from the data model to deployment.' },
+  { title: 'Agencies and studios', text: 'You have the design and the client, and you need a dependable developer to build it in Astro or Next.js, on your schedule and under your name.' },
+  { title: 'Marketing and content teams', text: 'Your WordPress or older site is slow and hard to change. You want a faster site that keeps your URLs and search rankings.' },
+  { title: 'Data and directory projects', text: 'You have a dataset, a list, or a spreadsheet that should become a searchable site with thousands of pages that update themselves.' },
+];
+
+const work = [
+  {
+    title: 'Hailstorm Report',
+    stack: 'Astro · data pipeline · programmatic SEO',
+    href: 'https://hailstormreport.com/',
+    text: 'Turns 41,927 NOAA hail reports into an address lookup plus state, county, and storm pages, generated from the data at build time and refreshed with new reports.',
+    post: { href: '/blog/hail-data-to-address-lookup/', label: 'How I built it' },
+  },
+  {
+    title: 'Latinos en Baseball',
+    stack: 'Astro · i18n (EN/ES) · Cloudflare',
+    href: 'https://latinosenbaseball.com/en/',
+    text: 'A bilingual stats site with 2,488 player profiles, hometown maps, leaderboards, and comparisons, with a full English and Spanish version of every page.',
+    post: { href: '/blog/mapping-latin-american-big-league-hometowns/', label: 'How I mapped the hometowns' },
+  },
+  {
+    title: 'Christian Homeschools Hub',
+    stack: 'Next.js · search · admin dashboard',
+    href: 'https://www.christianhomeschoolshub.com/',
+    text: 'A national directory with search by state, a public submission form, and an admin dashboard for reviewing and approving listings.',
+  },
+  {
+    title: 'realedlopez.com',
+    stack: 'Astro · content collections · structured data',
+    href: '/',
+    text: 'This site. Scores 98 to 100 for performance and 100 for SEO in Google Lighthouse, with typed content, generated town pages, and structured data on every page.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Should my project use Astro or Next.js?',
+    a: 'Astro is usually the better choice for content-heavy and marketing sites, directories, and data sites, because it ships very little JavaScript and is fast by default. Next.js fits better when most of the product is interactive, with accounts, dashboards, and lots of app-like screens. I use both and will recommend the one that fits, not the one I prefer.',
+  },
+  {
+    q: 'Do you work remotely?',
+    a: 'Yes. I work with clients anywhere in the U.S. and am based in New York, on Eastern time. For clients in Westchester and the Hudson Valley, I can also meet in person.',
+  },
+  {
+    q: 'Can you work in our existing codebase?',
+    a: 'Yes. I can join an existing Astro, Next.js, or React project, follow your conventions and review process, and work in your repository from the first day.',
+  },
+  {
+    q: 'Can you move our site from WordPress to Astro?',
+    a: 'Yes. I move the content, rebuild the templates, keep every page address or redirect it, and carry over titles, descriptions, and structured data, so you keep the search rankings you already have.',
+  },
+  {
+    q: 'How do you price projects?',
+    a: 'Most projects get one fixed price after a short call: sites start at $2,500, directories and data sites at $8,000, and custom web apps at $12,000. For agencies and ongoing work, I can also work on a monthly or hourly basis. Ask, and I will quote it in writing.',
+  },
+  {
+    q: 'Who owns the code?',
+    a: 'You do. Everything lives in your repository and your hosting accounts, with a README so another developer can pick it up later.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name: 'Astro and Next.js development',
+    serviceType: 'Web development with Astro and Next.js',
+    description:
+      'Freelance Astro and Next.js development for founders, agencies, and teams: fast marketing and content sites, directories, data-driven sites, migrations, and web apps.',
+    provider: { '@id': `${site.url}/#person` },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    url,
+  },
+  faqSchema(faqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services/` },
+      { '@type': 'ListItem', position: 3, name: 'Astro and Next.js developer', item: url },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Astro & Next.js Developer for Hire | ${site.name}`}
+  description="Freelance Astro and Next.js developer for founders, agencies, and teams: fast content sites, directories, data sites, migrations, and web apps. U.S.-based."
+  schema={schema}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/services/">Services</a> <span aria-hidden="true">/</span> Astro and Next.js developer
+    </nav>
+
+    <header class="intro">
+      <h1>Astro and Next.js developer for hire</h1>
+      <p class="lede">
+        I'm {site.name}, an independent full-stack developer in New York. I build fast, data-driven websites with
+        Astro and web apps with Next.js, and I work directly with founders, agencies, and teams across the U.S. You
+        work with the person writing the code, from the first call to launch.
+      </p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Astro / Next.js project')}`}>Tell me about your project</a>
+    </header>
+
+    <section aria-labelledby="who-h">
+      <h2 id="who-h">Who I work with</h2>
+      <ul class="builds two">
+        {who.map((w) => (
+          <li>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="compare" aria-labelledby="which-h">
+      <h2 id="which-h">Astro or Next.js?</h2>
+      <div class="cols">
+        <div>
+          <h3>I reach for Astro when</h3>
+          <ul>
+            <li>The site is mostly content: marketing pages, articles, docs, or listings</li>
+            <li>There are hundreds or thousands of pages generated from data</li>
+            <li>Speed and search rankings matter most</li>
+            <li>Only a few parts of the page need to be interactive</li>
+          </ul>
+        </div>
+        <div>
+          <h3>I reach for Next.js when</h3>
+          <ul>
+            <li>Users sign in and see their own data</li>
+            <li>The product is mostly dashboards, forms, and app screens</li>
+            <li>Content changes on every request or per user</li>
+            <li>The team already works in a React and Next.js codebase</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof" aria-labelledby="work-h">
+      <h2 id="work-h">Things I've built</h2>
+      <p class="sub">Every project here is live, and I built each one myself.</p>
+      <ul>
+        {work.map((w) => (
+          <li>
+            <h3><a href={w.href}>{w.title}</a></h3>
+            <p class="tech">{w.stack}</p>
+            <p>{w.text}</p>
+            {w.post && <a class="more" href={w.post.href}>{w.post.label}</a>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="stack" aria-labelledby="get-h">
+      <h2 id="get-h">What every project includes</h2>
+      <ul class="checks">
+        <li>TypeScript, clean components, and a README another developer can follow</li>
+        <li>Fast loading on phones, measured with Core Web Vitals before launch</li>
+        <li>Accessible markup: real headings, labels, keyboard support, and good contrast</li>
+        <li>Search setup: titles, descriptions, canonical URLs, sitemaps, and structured data</li>
+        <li>English and Spanish versions when you need them</li>
+        <li>Deployment to Vercel or Cloudflare, in your accounts</li>
+      </ul>
+    </section>
+
+    <section class="price" aria-labelledby="price-h">
+      <h2 id="price-h">How we can work together</h2>
+      <p>
+        Most projects get <strong>one fixed price</strong> in writing after a short call. Sites start at $2,500,
+        directories and data sites at $8,000, and custom web apps at $12,000. For agencies and ongoing work, I also
+        work monthly or hourly. See all prices on the <a href="/services/#pricing-h">Services page</a>, or read more
+        about <a href="/custom-web-apps/">custom web apps</a>.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} />
+    <Cta
+      heading="Have an Astro or Next.js project?"
+      text="Send me a few lines about what you're building, your timeline, and any links. I'll reply within two business days."
+      subject="Astro / Next.js project"
+    />
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .crumbs { color: var(--muted); font-size: var(--step--1); margin-bottom: 1.5rem; }
+  .crumbs a { color: var(--muted); }
+  .intro { max-width: 46rem; margin-bottom: clamp(3rem, 7vw, 4.5rem); }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  h2 { font-size: var(--step-2); }
+  section + section { margin-top: clamp(3rem, 7vw, 5rem); }
+
+  .signs ul { margin: 1.25rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; max-width: 44rem; }
+  .signs li { padding-left: 1.6rem; position: relative; color: #c4ccda; }
+  .signs li::before { content: '→'; position: absolute; left: 0; color: var(--amber); font-family: var(--mono); }
+
+  .builds { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .builds li { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: clamp(1.25rem, 3vw, 1.75rem); }
+  .builds h3 { font-size: 1.15rem; }
+  .builds p { color: var(--muted); margin: 0.5rem 0 0; font-size: 0.97rem; }
+
+  .proof .sub { color: #c4ccda; margin: 0.75rem 0 0; }
+  .proof ul { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.25rem; }
+  .proof li { border-left: 2px solid var(--amber); padding-left: 1.25rem; max-width: 46rem; }
+  .proof h3 { font-size: 1.15rem; }
+  .proof h3 a { color: var(--text); text-decoration-color: var(--rule); }
+  .proof h3 a:hover { color: var(--amber); }
+  .proof p { color: var(--muted); margin: 0.4rem 0 0; }
+
+  .stack p, .price p { color: #c4ccda; max-width: 62ch; margin: 0.75rem 0 0; }
+  .price a, .area a { color: var(--amber); }
+  .price strong { color: var(--amber); }
+
+  .process ol { list-style: none; counter-reset: step; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+  .process li { counter-increment: step; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  .process li:first-child { border-color: var(--amber); }
+  .process li::before { content: counter(step); font-family: var(--mono); color: var(--amber); font-size: 0.85rem; }
+  .process h3 { font-size: 1.1rem; margin: 0.35rem 0 0.4rem; }
+  .process p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  .area { color: var(--muted); margin-top: 2rem; font-size: var(--step--1); max-width: 62ch; }
+
+  @media (max-width: 60rem) {
+    .builds { grid-template-columns: repeat(2, 1fr); }
+    .process ol { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 36rem) {
+    .builds, .process ol { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style>
+  .builds.two { grid-template-columns: repeat(2, 1fr); }
+  .compare .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+  .compare .cols > div { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: clamp(1.25rem, 3vw, 1.75rem); }
+  .compare h3 { font-size: 1.15rem; }
+  .compare ul, .checks { margin: 0.75rem 0 0; padding-left: 1.1rem; color: #c4ccda; }
+  .compare li + li, .checks li + li { margin-top: 0.45rem; }
+  .compare li::marker, .checks li::marker { color: var(--amber); }
+  .checks { max-width: 46rem; }
+  .proof .tech { font-family: var(--mono); font-size: 0.8rem; color: var(--amber); margin: 0.3rem 0 0; opacity: 0.85; }
+  .proof .more { display: inline-block; margin-top: 0.4rem; color: var(--amber); font-size: var(--step--1); }
+  @media (max-width: 48rem) { .builds.two, .compare .cols { grid-template-columns: 1fr; } }
+</style>
