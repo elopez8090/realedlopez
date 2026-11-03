@@ -63,7 +63,7 @@ export const services: Service[] = [
       'Forms, submissions, and admin dashboards',
       'Connections to the tools you already use',
     ],
-    example: { label: 'See Christian Homeschools Hub', href: 'https://www.christianhomeschoolshub.com/' },
+    example: { label: 'More about custom web apps', href: '/custom-web-apps/' },
   },
   {
     id: 'care',

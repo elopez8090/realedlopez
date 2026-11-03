@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { businessSchema, faqSchema } from '../data/business';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+
+const builds = [
+  {
+    title: 'Customer portals',
+    text: 'A private login where customers check the status of a job, download invoices or documents, and send you files, instead of calling or emailing to ask.',
+  },
+  {
+    title: 'Booking and scheduling',
+    text: 'Appointments, classes, rentals, or service calls booked online, with reminders and a schedule your staff can see, built around how you actually work.',
+  },
+  {
+    title: 'Online forms that replace paper',
+    text: 'Intake forms, applications, estimates, and work orders filled out on a phone and saved in one place, with no retyping and no lost clipboards.',
+  },
+  {
+    title: 'Internal dashboards',
+    text: 'One screen with the numbers you check every day: orders, jobs, leads, or inventory, pulled together from the tools and spreadsheets you already use.',
+  },
+  {
+    title: 'Directories and searchable databases',
+    text: 'Member directories, listings, catalogs, and lookup tools with search, filters, submission forms, and an admin review queue.',
+  },
+  {
+    title: 'Connecting your tools',
+    text: 'Getting your website, payment processor, calendar, email, and spreadsheets to share information automatically, so nobody copies data from one to another.',
+  },
+];
+
+const proof = [
+  {
+    title: 'Christian Homeschools Hub',
+    href: 'https://www.christianhomeschoolshub.com/',
+    text: 'A national directory built with Next.js. Program owners submit listings through a form, I approve them in an admin dashboard, and families search by state.',
+  },
+  {
+    title: 'Hailstorm Report',
+    href: 'https://hailstormreport.com/',
+    text: 'An address lookup over 41,927 NOAA hail reports. A data pipeline cleans and loads federal storm data, and the site answers “did hail hit near my house?” in about a second.',
+  },
+  {
+    title: 'Latinos en Baseball',
+    href: 'https://latinosenbaseball.com/en/',
+    text: 'A bilingual English and Spanish site built on a database of 2,488 players, with search, comparisons, and thousands of pages generated from the data.',
+  },
+];
+
+const steps = [
+  { title: 'Free call', detail: 'You walk me through the problem: what you do today, where time gets lost, and who will use the app.' },
+  { title: 'Written plan and fixed price', detail: 'I send a short plan with the screens, what the first version includes, and one fixed price.' },
+  { title: 'Build in stages', detail: 'You get a working link early and see progress every week or two, so changes happen before they are expensive.' },
+  { title: 'Launch and training', detail: 'I move your data in, launch it, and show you and your staff how to use it.' },
+  { title: 'Support', detail: 'A monthly care plan covers updates, backups, and small changes. You can also call me only when you need something.' },
+];
+
+const faqs = [
+  {
+    q: 'How much does a custom web app cost?',
+    a: 'Custom web apps start at $12,000. A smaller tool, like an online intake form with an admin page, costs less, and a larger app with accounts, payments, and several types of users costs more. After a free call, you get one fixed price in writing.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'Most first versions take about 6 to 12 weeks, depending on the number of screens and the tools it connects to. I build the most important part first, so you can start using it sooner.',
+  },
+  {
+    q: 'Should I buy off-the-shelf software instead?',
+    a: 'Often, yes. If an existing product does nearly everything you need at a fair monthly price, I will tell you, and I can help set it up. A custom app makes sense when your process is unusual, when you are paying for several tools that do not talk to each other, or when the software is part of what makes your business different.',
+  },
+  {
+    q: 'Who owns the app and the code?',
+    a: 'You do. The code, the data, and the hosting and domain accounts are in your name, so you are never locked in to me or anyone else.',
+  },
+  {
+    q: 'Will it work on phones?',
+    a: 'Yes. Everything I build works in the browser on phones, tablets, and computers, and it can be added to a phone’s home screen like an app, without going through an app store.',
+  },
+  {
+    q: 'What does it cost to run each month?',
+    a: 'For most small business apps, hosting and the database cost little, often under $50 a month, and they are billed to you directly. An optional care plan for updates and support runs $75 to $200 a month.',
+  },
+  {
+    q: 'Is my customers’ data secure?',
+    a: 'Yes. I use secure logins, encrypted connections, limited access for each type of user, and regular backups, and I only collect the data the app actually needs.',
+  },
+];
+
+const schema = [
+  businessSchema(url),
+  {
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name: 'Custom web app development',
+    serviceType: 'Custom web application development',
+    description:
+      'Custom web apps for small businesses and organizations in Westchester County, NY: customer portals, booking systems, online forms, dashboards, directories, and integrations.',
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: { '@type': 'AdministrativeArea', name: 'Westchester County, NY' },
+    url,
+    offers: { '@type': 'Offer', priceCurrency: 'USD', price: '12000', description: 'Starting price for a custom web app' },
+  },
+  faqSchema(faqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services/` },
+      { '@type': 'ListItem', position: 3, name: 'Custom web apps', item: url },
+    ],
+  },
+];
+---
+
+<Base
+  title="Custom Web App Development in Westchester, NY"
+  description="Custom web apps for Westchester businesses: customer portals, booking, online forms, and dashboards that replace spreadsheets and paper. From $12,000."
+  schema={schema}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/services/">Services</a> <span aria-hidden="true">/</span> Custom web apps
+    </nav>
+
+    <header class="intro">
+      <h1>Custom web apps for Westchester businesses</h1>
+      <p class="lede">
+        When spreadsheets, paper forms, and a pile of separate apps start running your day, a custom web app can
+        bring it all into one place. I'm {site.name}, a full-stack web developer in Cortlandt Manor, and I build web
+        apps that fit how your business already works.
+      </p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Custom web app')}`}>Talk about your idea</a>
+    </header>
+
+    <section class="signs" aria-labelledby="signs-h">
+      <h2 id="signs-h">Signs you've outgrown spreadsheets</h2>
+      <ul>
+        <li>The same information gets typed into two or three places.</li>
+        <li>Customers call or email just to ask where things stand.</li>
+        <li>Only one person knows how the big spreadsheet works.</li>
+        <li>You pay for several subscriptions that don't talk to each other.</li>
+        <li>Paper forms get lost, retyped, or filled out wrong.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="build-h">
+      <h2 id="build-h">What I build</h2>
+      <ul class="builds">
+        {builds.map((b) => (
+          <li>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="proof" aria-labelledby="proof-h">
+      <h2 id="proof-h">Apps and data projects I've built</h2>
+      <p class="sub">All three are live, and I built each one myself, from the database to the last screen.</p>
+      <ul>
+        {proof.map((p) => (
+          <li>
+            <h3><a href={p.href}>{p.title}</a></h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="stack" aria-labelledby="stack-h">
+      <h2 id="stack-h">How I build them</h2>
+      <p>
+        I build with TypeScript, React, and Next.js, with a SQL database and hosting on Vercel or Cloudflare. These
+        are widely used, well-supported tools, so any good developer can work on your app later. The apps are fast,
+        work on any phone, and cost little to run. You own the code, the data, and every account.
+      </p>
+    </section>
+
+    <section class="process" aria-labelledby="process-h">
+      <h2 id="process-h">How a project works</h2>
+      <ol>
+        {steps.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="price" aria-labelledby="price-h">
+      <h2 id="price-h">Pricing</h2>
+      <p>
+        Custom web apps start at <strong>$12,000</strong>, with one fixed price in writing before any work begins.
+        Directories and data-driven sites start at $8,000. See all prices on the <a href="/services/#pricing-h">Services page</a>.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} />
+    <Cta
+      heading="Have a process that needs an app?"
+      text="Tell me what you do today and where it slows you down. I'll reply within two business days, and I'll tell you honestly if off-the-shelf software would serve you better."
+      subject="Custom web app"
+    />
+    <p class="area">I meet clients in person across <a href="/web-developer-westchester/">Westchester County</a>, including <a href="/web-developer-peekskill/">Peekskill</a>, <a href="/web-developer-yorktown/">Yorktown</a>, <a href="/web-developer-ossining/">Ossining</a>, and <a href="/web-developer-croton-on-hudson/">Croton-on-Hudson</a>, and work remotely with clients anywhere in the U.S.</p>
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .crumbs { color: var(--muted); font-size: var(--step--1); margin-bottom: 1.5rem; }
+  .crumbs a { color: var(--muted); }
+  .intro { max-width: 46rem; margin-bottom: clamp(3rem, 7vw, 4.5rem); }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  h2 { font-size: var(--step-2); }
+  section + section { margin-top: clamp(3rem, 7vw, 5rem); }
+
+  .signs ul { margin: 1.25rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; max-width: 44rem; }
+  .signs li { padding-left: 1.6rem; position: relative; color: #c4ccda; }
+  .signs li::before { content: '→'; position: absolute; left: 0; color: var(--amber); font-family: var(--mono); }
+
+  .builds { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .builds li { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: clamp(1.25rem, 3vw, 1.75rem); }
+  .builds h3 { font-size: 1.15rem; }
+  .builds p { color: var(--muted); margin: 0.5rem 0 0; font-size: 0.97rem; }
+
+  .proof .sub { color: #c4ccda; margin: 0.75rem 0 0; }
+  .proof ul { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.25rem; }
+  .proof li { border-left: 2px solid var(--amber); padding-left: 1.25rem; max-width: 46rem; }
+  .proof h3 { font-size: 1.15rem; }
+  .proof h3 a { color: var(--text); text-decoration-color: var(--rule); }
+  .proof h3 a:hover { color: var(--amber); }
+  .proof p { color: var(--muted); margin: 0.4rem 0 0; }
+
+  .stack p, .price p { color: #c4ccda; max-width: 62ch; margin: 0.75rem 0 0; }
+  .price a, .area a { color: var(--amber); }
+  .price strong { color: var(--amber); }
+
+  .process ol { list-style: none; counter-reset: step; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+  .process li { counter-increment: step; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  .process li:first-child { border-color: var(--amber); }
+  .process li::before { content: counter(step); font-family: var(--mono); color: var(--amber); font-size: 0.85rem; }
+  .process h3 { font-size: 1.1rem; margin: 0.35rem 0 0.4rem; }
+  .process p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  .area { color: var(--muted); margin-top: 2rem; font-size: var(--step--1); max-width: 62ch; }
+
+  @media (max-width: 60rem) {
+    .builds { grid-template-columns: repeat(2, 1fr); }
+    .process ol { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 36rem) {
+    .builds, .process ol { grid-template-columns: 1fr; }
+  }
+</style>
