@@ -10,10 +10,10 @@ const links = [
   { href: '/services/', label: 'Services' },
   { href: '/#experience', label: 'How I work' },
   ...(hasPosts ? [{ href: '/blog/', label: 'Notes' }] : []),
-  { href: '/#contact', label: 'Contact' },
+  { href: '/contact/', label: 'Contact' },
 ];
 const current = (href: string) =>
-  (href === '/blog/' && path.startsWith('/blog')) || (href === '/services/' && path.startsWith('/services')) ? 'page' : undefined;
+  (href === '/blog/' && path.startsWith('/blog')) || (href === '/services/' && path.startsWith('/services')) || (href === '/contact/' && path.startsWith('/contact')) ? 'page' : undefined;
 ---
 
 <header class="header">

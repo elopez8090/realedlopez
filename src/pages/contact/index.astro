@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { needs, budgets } from '../../data/contact';
+
+const schema = [
+  {
+    '@type': 'ContactPage',
+    name: `Contact ${site.name}`,
+    url: `${site.url}/contact/`,
+    about: { '@id': `${site.url}/#person` },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: `${site.url}/contact/` },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Contact | ${site.name}, Web Developer in Westchester`}
+  description="Tell me about your website, speed fix, or web app project. I reply within two business days. Free website checks for Westchester businesses."
+  schema={schema}
+>
+  <div class="wrap page">
+    <div class="grid">
+      <header class="intro">
+        <h1>Tell me about your project</h1>
+        <p class="lede">
+          A few lines is plenty. I read every message myself and reply within two business days with next steps,
+          or a free check of your current site.
+        </p>
+        <ul class="facts">
+          <li><strong>Based in</strong> Cortlandt Manor, NY. I meet in person across Westchester and work remotely anywhere in the U.S.</li>
+          <li><strong>Prefer email?</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><strong>Prices</strong> are on the <a href="/services/#pricing-h">Services page</a>, so there are no surprises.</li>
+        </ul>
+      </header>
+
+      <form class="form" method="post" action="/api/contact/" novalidate data-contact>
+        <div class="row two">
+          <label>
+            <span>Your name <em>required</em></span>
+            <input name="name" autocomplete="name" required maxlength="100" />
+          </label>
+          <label>
+            <span>Email <em>required</em></span>
+            <input name="email" type="email" autocomplete="email" required maxlength="200" />
+          </label>
+        </div>
+        <div class="row two">
+          <label>
+            <span>Phone</span>
+            <input name="phone" type="tel" autocomplete="tel" maxlength="40" />
+          </label>
+          <label>
+            <span>Business or organization</span>
+            <input name="business" autocomplete="organization" maxlength="150" />
+          </label>
+        </div>
+        <label>
+          <span>Current website, if you have one</span>
+          <input name="website" type="text" inputmode="url" placeholder="yourbusiness.com" maxlength="300" />
+        </label>
+        <div class="row two">
+          <label>
+            <span>What do you need?</span>
+            <select name="need" data-need>
+              {Object.entries(needs).map(([k, v]) => <option value={k}>{v}</option>)}
+            </select>
+          </label>
+          <label>
+            <span>Budget</span>
+            <select name="budget">
+              {budgets.map((b) => <option value={b}>{b}</option>)}
+            </select>
+          </label>
+        </div>
+        <label>
+          <span>Message <em>required</em></span>
+          <textarea name="message" rows="6" required maxlength="5000" placeholder="What does your business do, and what would you like your website to do?"></textarea>
+        </label>
+
+        <!-- Spam traps: hidden from people, filled in by bots -->
+        <div class="trap" aria-hidden="true">
+          <label>Leave this empty <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <input type="hidden" name="started" value="" data-started />
+
+        <button class="btn btn-primary" type="submit">Send message</button>
+        <p class="status" role="status" aria-live="polite" data-status></p>
+        <p class="small">I only use your details to reply to you. No newsletters, no sharing.</p>
+      </form>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact]');
+  if (form) {
+    const started = form.querySelector<HTMLInputElement>('[data-started]')!;
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    started.value = String(Date.now());
+
+    // Pre-select "What do you need?" from links like /contact/?need=speed
+    const need = new URLSearchParams(location.search).get('need');
+    const select = form.querySelector<HTMLSelectElement>('[data-need]')!;
+    if (need && [...select.options].some((o) => o.value === need)) select.value = need;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      status.className = 'status';
+      status.textContent = '';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.message);
+        location.href = '/contact/thanks/';
+      } catch (err) {
+        status.className = 'status error';
+        status.textContent = (err as Error).message || 'Something went wrong. Please email me instead.';
+        button.disabled = false;
+        button.textContent = 'Send message';
+      }
+    });
+  }
+</script>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; color: var(--muted); }
+  .facts strong { color: var(--text); font-weight: 600; }
+  .facts a { color: var(--amber); }
+
+  .form { background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; padding: clamp(1.25rem, 4vw, 2.25rem); display: grid; gap: 1.1rem; }
+  .row.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  label { display: grid; gap: 0.4rem; }
+  label > span { font-size: var(--step--1); font-weight: 500; color: var(--text); }
+  label em { font-style: normal; color: var(--muted); font-weight: 400; margin-left: 0.25rem; }
+  input, select, textarea {
+    font: inherit; font-size: 1rem; color: var(--text); background: var(--ink);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 0.75rem 0.85rem; width: 100%;
+  }
+  textarea { resize: vertical; min-height: 9rem; }
+  select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 1.1rem) 50%, calc(100% - 0.8rem) 50%; background-size: 0.3rem 0.3rem; background-repeat: no-repeat; padding-right: 2rem; }
+  input::placeholder, textarea::placeholder { color: #6b7488; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; border-color: var(--amber); }
+  .form button { justify-self: start; margin-top: 0.25rem; }
+  .form button:disabled { opacity: 0.7; cursor: wait; }
+  .status { margin: 0; min-height: 1.2em; }
+  .status.error { color: #ff9b8a; }
+  .small { margin: 0; color: var(--muted); font-size: 0.85rem; }
+  .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  @media (max-width: 52rem) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 34rem) { .row.two { grid-template-columns: 1fr; } }
+</style>

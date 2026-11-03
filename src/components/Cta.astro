@@ -1,10 +1,11 @@
 ---
 import { site } from '../data/site';
-interface Props { heading?: string; text?: string; subject?: string }
+interface Props { heading?: string; text?: string; need?: string; button?: string }
 const {
   heading = 'Tell me about your project',
   text = 'Send a few lines about your business and what you need. I reply within two business days with next steps.',
-  subject = 'Website project',
+  need,
+  button = 'Get a free quote',
 } = Astro.props;
 ---
 
@@ -12,7 +13,7 @@ const {
   <h2>{heading}</h2>
   <p>{text}</p>
   <div class="row">
-    <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(subject)}`}>Get a free quote</a>
+    <a class="btn btn-primary" href={need ? `/contact/?need=${need}` : '/contact/'}>{button}</a>
     <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
   </div>
 </section>

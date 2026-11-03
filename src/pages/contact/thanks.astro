@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+---
+
+<Base title={`Message sent | ${site.name}`} description="Thanks for your message. I reply within two business days." noindex>
+  <section class="wrap done">
+    <p class="cmd"><span>$</span> send message</p>
+    <p class="ok">✓ delivered</p>
+    <h1>Thanks, your message is on its way.</h1>
+    <p class="hint">
+      I read every message myself and reply within two business days. If it's urgent, email me at{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Back to the homepage</a>
+      <a class="btn" href="/blog/">Read my notes</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .done { padding-block: clamp(5rem, 14vw, 10rem); }
+  .cmd, .ok { font-family: var(--mono); font-size: 0.9rem; margin: 0; }
+  .cmd span { color: var(--amber); }
+  .ok { color: var(--ok); margin-bottom: 2rem; }
+  h1 { font-size: var(--step-3); }
+  .hint { color: var(--muted); max-width: 46ch; margin: 1rem 0 2rem; }
+  .hint a { color: var(--amber); }
+  .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+</style>

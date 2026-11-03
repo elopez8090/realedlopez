@@ -33,7 +33,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
         <p class="lede">{site.intro}</p>
         <div class="actions">
           <a class="btn btn-primary" href="#projects">See my projects</a>
-          <a class="btn" href={`mailto:${site.email}`}>Email me</a>
+          <a class="btn" href="/contact/">Contact me</a>
         </div>
       </div>
       <div class="hero-term">
@@ -109,7 +109,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
             </li>
           ))}
         </ol>
-        <a class="btn" href={`mailto:${site.email}`}>Start a project with me</a>
+        <a class="btn" href="/contact/">Start a project with me</a>
       </div>
 
       <aside class="skills" aria-labelledby="skills-h">
@@ -152,6 +152,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     <div class="wrap">
       <h2>Have a project or a role in mind?</h2>
       <p>I reply to every message within two business days.</p>
+      <a class="btn btn-primary contact-btn" href="/contact/">Send me a message</a>
       <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
       <ul class="contact-links">
         <li><a href="/services/">Services and pricing</a></li>
@@ -270,6 +271,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     transition: border-color 0.15s;
   }
   .mail:hover { border-color: var(--amber); }
+  .contact-btn { display: table; margin-bottom: 1.75rem; }
   .contact-links { display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 2rem 0 0; color: var(--muted); font-weight: 500; }
 
   @media (max-width: 60rem) {

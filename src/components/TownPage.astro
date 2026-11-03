@@ -16,7 +16,6 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
 const local = townStats[t.statsKey];
 const ownNumbers = local && local.sitesScored >= MIN_SCORED;
 const nearby = t.nearby.map(townBySlug);
-const subject = `Free website check (${t.name})`;
 
 const schema = [
   businessSchema(url),
@@ -41,7 +40,7 @@ const schema = [
     <header class="intro">
       <h1>{t.h1}</h1>
       <p class="lede">{t.lede}</p>
-      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(subject)}`}>Get a free website check</a>
+      <a class="btn btn-primary" href="/contact/?need=check">Get a free website check</a>
     </header>
 
     <section class="study" aria-labelledby="study-h">
@@ -143,7 +142,7 @@ const schema = [
       </ul>
     </nav>
 
-    <Cta heading="Want to know how your site scored?" text="Send me your website address. I will run the same test and reply with your score and the changes that would help most, free." subject={subject} />
+    <Cta heading="Want to know how your site scored?" text="Send me your website address. I will run the same test and reply with your score and the changes that would help most, free." need="check" button="Get a free website check" />
   </div>
 </Base>
 

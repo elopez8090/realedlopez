@@ -42,7 +42,7 @@ const placeCount = regions.reduce((n, r) => n + r.places.length, 0);
         I'm {site.name}, an independent web developer based in Cortlandt Manor. I build fast, professional websites
         for Westchester businesses and organizations, and I can meet you in person anywhere in the county.
       </p>
-      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Website project in Westchester')}`}>Get a free quote</a>
+      <a class="btn btn-primary" href="/contact/">Get a free quote</a>
     </header>
 
     <section class="why" aria-labelledby="why-h">
@@ -108,7 +108,7 @@ const placeCount = regions.reduce((n, r) => n + r.places.length, 0);
     </section>
 
     <Faq faqs={localFaqs} />
-    <Cta heading="Have a project in Westchester?" subject="Website project in Westchester" />
+    <Cta heading="Have a project in Westchester?" />
   </div>
 </Base>
 
