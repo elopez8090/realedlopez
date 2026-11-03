@@ -9,7 +9,7 @@ export function businessSchema(pageUrl: string) {
     name: `${site.name}, Web Development`,
     url: `${site.url}/services/`,
     description:
-      'Web design and development for small businesses and organizations in Westchester County, NY: fast websites, redesigns, directories, and custom web apps.',
+      'Web development for small businesses and organizations in Westchester County, NY: fast websites, redesigns, directories, and custom web apps.',
     founder: { '@id': `${site.url}/#person` },
     email: site.email,
     image: `${site.url}/og.png`,

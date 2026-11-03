@@ -3,7 +3,7 @@
 // in src/pages that renders <TownPage slug="..." />.
 
 export interface Town {
-  slug: string; // page address, e.g. web-design-peekskill
+  slug: string; // page address, e.g. web-developer-peekskill
   name: string; // shown in headings
   statsKey: string; // key in townStats (the study area this page reports)
   title: string; // under 60 characters
@@ -17,12 +17,12 @@ export interface Town {
 
 export const towns: Town[] = [
   {
-    slug: 'web-design-cortlandt-manor',
+    slug: 'web-developer-cortlandt-manor',
     name: 'Cortlandt Manor',
     statsKey: 'Cortlandt',
-    title: 'Web Design in Cortlandt Manor, NY | Eduardo Lopez',
+    title: 'Web Developer in Cortlandt Manor, NY | Eduardo Lopez',
     description: 'Web developer based in Cortlandt Manor. Fast, mobile-friendly websites for local businesses, with a free speed check of your current site.',
-    h1: 'Web design in Cortlandt Manor, from a neighbor',
+    h1: 'Your web developer in Cortlandt Manor, from a neighbor',
     lede: 'Cortlandt Manor is home. I build fast, mobile-friendly websites for businesses here and across the Town of Cortlandt, and I can meet you in person, usually the same week.',
     local: {
       heading: 'Working with Cortlandt businesses',
@@ -33,15 +33,15 @@ export const towns: Town[] = [
       { q: 'Can you help my business show up on Google Maps?', a: 'Yes. I set up or clean up your Google Business Profile so your hours, services, photos, and website link are correct, and I make sure your website matches it.' },
       { q: 'Can you check my current website for free?', a: 'Yes. Send me the address and I will run Google’s mobile speed test and reply with your score and the changes that would help most.' },
     ],
-    nearby: ['web-design-peekskill', 'web-design-croton-on-hudson', 'web-design-yorktown'],
+    nearby: ['web-developer-peekskill', 'web-developer-croton-on-hudson', 'web-developer-yorktown'],
   },
   {
-    slug: 'web-design-peekskill',
+    slug: 'web-developer-peekskill',
     name: 'Peekskill',
     statsKey: 'Peekskill',
-    title: 'Web Design in Peekskill, NY | Eduardo Lopez',
+    title: 'Web Developer in Peekskill, NY | Eduardo Lopez',
     description: 'Web developer next door in Cortlandt Manor. I tested Peekskill business websites on phones: none met Google’s speed target. Free site check.',
-    h1: 'Web design for Peekskill businesses',
+    h1: 'Web developer for Peekskill businesses',
     lede: 'I’m a web developer in Cortlandt Manor, right next door to Peekskill. I build fast, mobile-friendly websites for local restaurants, shops, and service businesses, and I can meet you downtown to plan yours.',
     local: {
       heading: 'Local, and easy to reach',
@@ -52,15 +52,15 @@ export const towns: Town[] = [
       { q: 'Can we meet in Peekskill?', a: 'Yes. I live in neighboring Cortlandt Manor and am happy to meet at your business or a coffee place downtown.' },
       { q: 'My site is on Wix, Squarespace, or WordPress. Do I need to start over?', a: 'Not always. Some sites get much faster with a few fixes to images, fonts, and apps. If a rebuild makes more sense, I keep your page addresses so you do not lose the Google rankings you already have.' },
     ],
-    nearby: ['web-design-cortlandt-manor', 'web-design-croton-on-hudson', 'web-design-yorktown'],
+    nearby: ['web-developer-cortlandt-manor', 'web-developer-croton-on-hudson', 'web-developer-yorktown'],
   },
   {
-    slug: 'web-design-croton-on-hudson',
+    slug: 'web-developer-croton-on-hudson',
     name: 'Croton-on-Hudson',
     statsKey: 'Croton-on-Hudson',
-    title: 'Web Design in Croton-on-Hudson, NY | Eduardo Lopez',
+    title: 'Web Developer in Croton-on-Hudson, NY | Eduardo Lopez',
     description: 'Local web developer for Croton-on-Hudson businesses. I tested 22 Croton business websites on phones: none met Google’s speed target.',
-    h1: 'Web design for Croton-on-Hudson businesses',
+    h1: 'Web developer for Croton-on-Hudson businesses',
     lede: 'I’m a web developer in neighboring Cortlandt Manor. I build fast websites for Croton’s restaurants, shops, and service businesses, in both the Upper Village and Harmon.',
     local: {
       heading: 'Built for how Croton customers find you',
@@ -71,15 +71,15 @@ export const towns: Town[] = [
       { q: 'Can you make my menu or product list easy to update?', a: 'Yes. I can set up your site so you can change menus, hours, and specials yourself, without calling a developer for every update.' },
       { q: 'Can you check my current website for free?', a: 'Yes. Send me the address and I will reply with your mobile speed score and the changes that would help most.' },
     ],
-    nearby: ['web-design-cortlandt-manor', 'web-design-ossining', 'web-design-peekskill'],
+    nearby: ['web-developer-cortlandt-manor', 'web-developer-ossining', 'web-developer-peekskill'],
   },
   {
-    slug: 'web-design-yorktown',
+    slug: 'web-developer-yorktown',
     name: 'Yorktown',
     statsKey: 'Yorktown',
-    title: 'Web Design in Yorktown, NY | Eduardo Lopez',
+    title: 'Web Developer in Yorktown, NY | Eduardo Lopez',
     description: 'Web developer for Yorktown Heights, Mohegan Lake, Shrub Oak, and Jefferson Valley businesses. Fast, mobile-friendly sites and a free speed check.',
-    h1: 'Web design for Yorktown businesses',
+    h1: 'Web developer for Yorktown businesses',
     lede: 'I build fast, mobile-friendly websites for businesses across Yorktown, including Yorktown Heights, Mohegan Lake, Shrub Oak, Jefferson Valley, and Crompond. I’m right next door in Cortlandt Manor.',
     local: {
       heading: 'One town, several business areas',
@@ -90,15 +90,15 @@ export const towns: Town[] = [
       { q: 'Can my website mention every hamlet I serve?', a: 'Yes. I set up your pages and Google Business Profile service area so customers searching in Yorktown Heights, Mohegan Lake, or Shrub Oak can all find you, without stuffing keywords that Google penalizes.' },
       { q: 'Can you check my current website for free?', a: 'Yes. Send me the address and I will reply with your mobile speed score and the changes that would help most.' },
     ],
-    nearby: ['web-design-cortlandt-manor', 'web-design-peekskill', 'web-design-ossining'],
+    nearby: ['web-developer-cortlandt-manor', 'web-developer-peekskill', 'web-developer-ossining'],
   },
   {
-    slug: 'web-design-ossining',
+    slug: 'web-developer-ossining',
     name: 'Ossining',
     statsKey: 'Ossining',
-    title: 'Web Design in Ossining, NY | Eduardo Lopez',
+    title: 'Web Developer in Ossining, NY | Eduardo Lopez',
     description: 'Local web developer for Ossining businesses, including bilingual English and Spanish websites. Fast, mobile-friendly sites and a free speed check.',
-    h1: 'Web design for Ossining businesses',
+    h1: 'Web developer for Ossining businesses',
     lede: 'I build fast, mobile-friendly websites for Ossining’s restaurants, shops, and service businesses, including bilingual English and Spanish sites. I’m a short drive away in Cortlandt Manor.',
     local: {
       heading: 'Websites that serve all of Ossining',
@@ -109,7 +109,7 @@ export const towns: Town[] = [
       { q: 'Can we meet in Ossining?', a: 'Yes. I am a short drive away in Cortlandt Manor and can meet at your business or downtown.' },
       { q: 'Can you check my current website for free?', a: 'Yes. Send me the address and I will reply with your mobile speed score and the changes that would help most.' },
     ],
-    nearby: ['web-design-croton-on-hudson', 'web-design-cortlandt-manor', 'web-design-yorktown'],
+    nearby: ['web-developer-croton-on-hudson', 'web-developer-cortlandt-manor', 'web-developer-yorktown'],
   },
 ];
 

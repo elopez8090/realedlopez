@@ -43,7 +43,7 @@ Google checks your website to confirm what your profile says. Your website also 
 - **Match your details exactly.** Your business name, address (or service area), and phone number should be the same on your website, your Business Profile, and directories like Yelp, Apple Maps, and your chamber of commerce listing.
 - **Say where you work, in plain words.** A line like "Serving Peekskill, Cortlandt Manor, and northern Westchester" in your homepage text and page titles helps Google connect you to local searches.
 - **Give your main services their own pages.** A plumber with separate pages for "water heater repair" and "drain cleaning" can show up for both. One page that lists everything usually ranks for neither.
-- **Make it fast on phones.** In my study of local business websites, [only 1 of 55 met Google's mobile speed target](/web-design-peekskill/). A slow site loses people who already found you. See [7 signs your website is costing you customers](/blog/signs-your-website-is-costing-you-customers/) for how to check yours.
+- **Make it fast on phones.** In my study of local business websites, [only 1 of 55 met Google's mobile speed target](/web-developer-peekskill/). A slow site loses people who already found you. See [7 signs your website is costing you customers](/blog/signs-your-website-is-costing-you-customers/) for how to check yours.
 - **Put the essentials up top.** On phones, your phone number (tap to call), hours, and address should be visible without scrolling.
 
 ## Step 4: Keep it active
@@ -61,4 +61,4 @@ Showing up in the map is not instant. A complete profile and a steady flow of re
 
 ## Want help?
 
-I'm a web developer in [Cortlandt Manor](/web-design-cortlandt-manor/), and I help businesses across [Westchester County](/web-design-westchester/) set up their Google Business Profile and build websites that support it. If you'd like me to look at your profile and website, [email me](mailto:eduardo@realedlopez.com?subject=Google%20profile%20and%20website%20check) and I'll send back the few changes that would make the biggest difference, free. You can also see [everything I offer](/services/).
+I'm a web developer in [Cortlandt Manor](/web-developer-cortlandt-manor/), and I help businesses across [Westchester County](/web-developer-westchester/) set up their Google Business Profile and build websites that support it. If you'd like me to look at your profile and website, [email me](mailto:eduardo@realedlopez.com?subject=Google%20profile%20and%20website%20check) and I'll send back the few changes that would make the biggest difference, free. You can also see [everything I offer](/services/).

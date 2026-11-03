@@ -21,7 +21,7 @@ Industry pricing guides for 2026 put a typical small business site of 5 to 10 pa
 
 Two things the table doesn't show:
 
-- **DIY isn't free.** Builders charge a monthly subscription, and the real cost is your time. Many of the slow sites in [my study of local business websites](/web-design-peekskill/) were built this way, often with large images and add-ons that hurt speed on phones.
+- **DIY isn't free.** Builders charge a monthly subscription, and the real cost is your time. Many of the slow sites in [my study of local business websites](/web-developer-peekskill/) were built this way, often with large images and add-ons that hurt speed on phones.
 - **Agency prices often include more than the website,** such as branding, photography, and marketing retainers. Compare what's actually included, not just the total.
 
 ## What makes a website cost more (or less)
@@ -42,7 +42,7 @@ Two things the table doesn't show:
 
 ## What I charge
 
-I'm an independent developer in [Cortlandt Manor](/web-design-cortlandt-manor/), and I publish my prices so you can budget before we talk:
+I'm an independent developer in [Cortlandt Manor](/web-developer-cortlandt-manor/), and I publish my prices so you can budget before we talk:
 
 | What you need | Price |
 | --- | --- |
@@ -74,4 +74,4 @@ Every project starts with a free call and ends with a **fixed price in writing**
 
 ## Get a free estimate
 
-If you're in [Peekskill](/web-design-peekskill/), [Croton-on-Hudson](/web-design-croton-on-hudson/), [Yorktown](/web-design-yorktown/), [Ossining](/web-design-ossining/), or anywhere in [Westchester County](/web-design-westchester/), [email me](mailto:eduardo@realedlopez.com?subject=Website%20estimate) a few lines about your business and what you need. I'll reply with a rough estimate, and we can set up a free call to turn it into a fixed quote.
+If you're in [Peekskill](/web-developer-peekskill/), [Croton-on-Hudson](/web-developer-croton-on-hudson/), [Yorktown](/web-developer-yorktown/), [Ossining](/web-developer-ossining/), or anywhere in [Westchester County](/web-developer-westchester/), [email me](mailto:eduardo@realedlopez.com?subject=Website%20estimate) a few lines about your business and what you need. I'll reply with a rough estimate, and we can set up a free call to turn it into a fixed quote.

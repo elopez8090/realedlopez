@@ -9,7 +9,7 @@ draft: false
 
 Before someone books a table or orders takeout, they usually look you up. In a survey of 1,101 U.S. diners by the restaurant marketing agency MGH, **77% said they check a restaurant's website first**, and about two in three of them said a website had put them off going to a restaurant at all.
 
-So I took a closer look at the restaurants in my [Northern Westchester website study](/web-design-peekskill/). Restaurants, cafes, and bars were the biggest group in the study, and their sites were slower than the local average.
+So I took a closer look at the restaurants in my [Northern Westchester website study](/web-developer-peekskill/). Restaurants, cafes, and bars were the biggest group in the study, and their sites were slower than the local average.
 
 ## What I found
 
@@ -99,6 +99,6 @@ If you get stuck on two or more of these, your website is probably costing you t
 
 Most restaurant sites don't need to be big. Home, menu, hours and location, ordering, and maybe private events or catering is plenty. That usually fits a starter site, and a speed fix on an existing site can be much less. I explain the price ranges, including mine, in [how much a website costs in Westchester](/blog/website-cost-westchester/).
 
-I'm a web developer in Cortlandt Manor, and I build fast, mobile-friendly sites for restaurants and other local businesses in [Peekskill](/web-design-peekskill/), [Croton-on-Hudson](/web-design-croton-on-hudson/), [Ossining](/web-design-ossining/), [Yorktown](/web-design-yorktown/), and across [Westchester](/web-design-westchester/). If you'd like to know how your restaurant's site did, [email me](mailto:eduardo@realedlopez.com) and I'll send you a free speed check, with the three fixes that would help most.
+I'm a web developer in Cortlandt Manor, and I build fast, mobile-friendly sites for restaurants and other local businesses in [Peekskill](/web-developer-peekskill/), [Croton-on-Hudson](/web-developer-croton-on-hudson/), [Ossining](/web-developer-ossining/), [Yorktown](/web-developer-yorktown/), and across [Westchester](/web-developer-westchester/). If you'd like to know how your restaurant's site did, [email me](mailto:eduardo@realedlopez.com) and I'll send you a free speed check, with the three fixes that would help most.
 
 *Sources: MGH diner survey of 1,101 U.S. adults, reported by [Restaurant Dive](https://restaurantdive.com/news/77-of-diners-visit-restaurant-websites-before-going-survey-finds/562008) and [Hospitality Technology](https://hospitalitytech.com/websites-matter-when-it-comes-luring-dine-and-delivery-customers); [DoorDash merchant pricing](https://merchants.doordash.com/en-us/products/pricing). Local results from my own October 2026 tests with Google PageSpeed Insights.*

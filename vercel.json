@@ -1,3 +1,7 @@
 {
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/web-design-:town", "destination": "/web-developer-:town/", "permanent": true },
+    { "source": "/web-design-:town/", "destination": "/web-developer-:town/", "permanent": true }
+  ]
 }

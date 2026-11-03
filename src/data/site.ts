@@ -9,7 +9,7 @@ export const site = {
   role: 'Full-stack software engineer',
   location: 'Cortlandt Manor, NY',
   // Shown in the browser tab and search results
-  title: 'Eduardo Lopez | Web Developer in Westchester County, NY',
+  title: 'Eduardo Lopez | Full-Stack Web Developer in Westchester, NY',
   description:
     'Eduardo Lopez is a web developer in Cortlandt Manor, NY, building fast, data-driven websites with Astro and Next.js for Westchester County businesses.',
   // Hero copy

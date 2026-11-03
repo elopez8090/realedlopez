@@ -9,7 +9,7 @@ draft: false
 
 Most people meet your business on a phone. They search, tap your website, and decide in a few seconds whether to call, visit, or go back and pick someone else.
 
-This fall I tested **63 independent business websites** across Peekskill, Cortlandt, Croton-on-Hudson, Yorktown, and Ossining with Google's own mobile speed test. The [full results are on my Peekskill page](/web-design-peekskill/). The same problems kept coming up, and most of them are invisible to the business owner, who usually visits their own site on fast office Wi-Fi.
+This fall I tested **63 independent business websites** across Peekskill, Cortlandt, Croton-on-Hudson, Yorktown, and Ossining with Google's own mobile speed test. The [full results are on my Peekskill page](/web-developer-peekskill/). The same problems kept coming up, and most of them are invisible to the business owner, who usually visits their own site on fast office Wi-Fi.
 
 Here are the seven signs to look for, how to check your site in a few minutes, and what fixes them.
 
@@ -73,4 +73,4 @@ This one doesn't show up in a speed test, but it costs the most. Picture someone
 
 Almost everything on this list can be fixed without starting over. Most slow local sites I tested are slow for the same few reasons, and a broken link or an old footer takes minutes to fix once you know it's there.
 
-**Want to know how your site did?** I offer a free check for businesses in [Peekskill](/web-design-peekskill/), [Cortlandt Manor](/web-design-cortlandt-manor/), [Croton-on-Hudson](/web-design-croton-on-hudson/), [Yorktown](/web-design-yorktown/), [Ossining](/web-design-ossining/), and the rest of [Westchester County](/web-design-westchester/). [Email me your website address](mailto:eduardo@realedlopez.com?subject=Free%20website%20check), and I'll reply with your mobile score and the two or three changes that would help most. You can also see [what I build for local businesses](/services/).
+**Want to know how your site did?** I offer a free check for businesses in [Peekskill](/web-developer-peekskill/), [Cortlandt Manor](/web-developer-cortlandt-manor/), [Croton-on-Hudson](/web-developer-croton-on-hudson/), [Yorktown](/web-developer-yorktown/), [Ossining](/web-developer-ossining/), and the rest of [Westchester County](/web-developer-westchester/). [Email me your website address](mailto:eduardo@realedlopez.com?subject=Free%20website%20check), and I'll reply with your mobile score and the two or three changes that would help most. You can also see [what I build for local businesses](/services/).
