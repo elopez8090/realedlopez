@@ -37,6 +37,7 @@ export const services: Service[] = [
       'Clearer pages and calls to action',
       'Redirects and cleanup so nothing breaks at launch',
     ],
+    example: { label: 'More about speed fixes', href: '/website-speed-optimization/' },
   },
   {
     id: 'directories-and-data',

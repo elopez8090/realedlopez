@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { businessSchema, faqSchema } from '../data/business';
+import { study } from '../data/studies/northern-westchester-2026';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+
+const fixes = [
+  {
+    title: 'Images',
+    text: 'Resizing oversized photos, converting them to modern formats like WebP or AVIF, and loading below-the-fold images only when needed. This alone often cuts load time in half.',
+  },
+  {
+    title: 'Apps, plugins, and scripts',
+    text: 'Finding the chat widgets, trackers, sliders, and plugins that slow every page, then removing, replacing, or delaying the ones you can live without.',
+  },
+  {
+    title: 'Fonts and video',
+    text: 'Trimming extra font files and replacing autoplay video backgrounds or heavy sliders at the top of the page with something that appears instantly.',
+  },
+  {
+    title: 'Layout shift',
+    text: 'Reserving space for images, banners, and embeds so buttons stop jumping while the page loads and people stop tapping the wrong thing.',
+  },
+  {
+    title: 'Phone usability',
+    text: 'Tap-to-call phone number, hours, and address near the top, readable text without zooming, and buttons big enough for a thumb.',
+  },
+  {
+    title: 'Hosting and caching',
+    text: 'Checking that your host, caching, and compression are set up correctly, and moving you to faster hosting if that is the real bottleneck.',
+  },
+];
+
+const steps = [
+  { title: 'Free check', detail: 'Send me your address. I run Google’s mobile test and reply with your score and the biggest problems.' },
+  { title: 'Fixed quote', detail: 'You get a list of the fixes I recommend and one price, starting at $750.' },
+  { title: 'Fixes', detail: 'I make the changes, usually within one to two weeks, without changing how your site looks unless you want me to.' },
+  { title: 'Before and after', detail: 'You get a short report comparing your scores and load times before and after, on the same test.' },
+];
+
+const faqs = [
+  {
+    q: 'How much does a speed fix cost?',
+    a: 'Speed and mobile fixes start at $750. The price depends on how many pages and templates your site has and what is slowing it down. You get a fixed price after the free check.',
+  },
+  {
+    q: 'Can you speed up a Wix, Squarespace, or GoDaddy site?',
+    a: 'Partly. On hosted builders I can shrink images, remove heavy apps and sections, fix layout shift, and improve the phone layout, which often helps a lot. I cannot change the platform’s own code, so there is a ceiling. If the builder itself is the bottleneck, I will tell you, and we can talk about whether a rebuild is worth it.',
+  },
+  {
+    q: 'Can you fix a slow WordPress site?',
+    a: 'Yes. WordPress sites are often slow because of heavy themes, too many plugins, large images, and missing caching, and all of those can be fixed. I test every change so nothing on your site breaks.',
+  },
+  {
+    q: 'Will my site look different afterward?',
+    a: 'Not unless you want it to. Most fixes happen behind the scenes. If a slideshow or video at the top is the main problem, I will show you a faster option before changing anything.',
+  },
+  {
+    q: 'Do you guarantee a score of 90 or more?',
+    a: 'No one honest can guarantee a score, because it depends on your platform and on what your site needs to do. I do promise a before-and-after report on the same test, and I quote only fixes I expect to make a real difference.',
+  },
+  {
+    q: 'Does site speed affect Google rankings?',
+    a: 'Speed is one of the signals Google uses, through its Core Web Vitals, but content and relevance matter more. The bigger payoff is people: visitors on a phone leave slow sites before they ever see your phone number or menu.',
+  },
+];
+
+const schema = [
+  businessSchema(url),
+  {
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name: 'Website speed optimization',
+    serviceType: 'Website speed and Core Web Vitals optimization',
+    description:
+      'Website speed and mobile fixes for small businesses in Westchester County, NY: images, plugins, fonts, layout shift, phone usability, and hosting, with a before-and-after report.',
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: { '@type': 'AdministrativeArea', name: 'Westchester County, NY' },
+    url,
+    offers: { '@type': 'Offer', priceCurrency: 'USD', price: '750', description: 'Starting price for a speed and mobile fix' },
+  },
+  faqSchema(faqs),
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services/` },
+      { '@type': 'ListItem', position: 3, name: 'Website speed optimization', item: url },
+    ],
+  },
+];
+---
+
+<Base
+  title="Website Speed Optimization in Westchester, NY"
+  description="Website slow on phones? I fix images, plugins, layout shift, and mobile usability for Westchester businesses, with a before-and-after report. From $750."
+  schema={schema}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/services/">Services</a> <span aria-hidden="true">/</span> Website speed optimization
+    </nav>
+
+    <header class="intro">
+      <h1>Website speed optimization for Westchester businesses</h1>
+      <p class="lede">
+        Most people find you on a phone, and a slow site loses them before they see your phone number. I'm {site.name}, a web
+        developer in Cortlandt Manor. I find what's slowing your site down and fix it, usually
+        without a redesign.
+      </p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Free speed check')}`}>Get a free speed check</a>
+    </header>
+
+    <section class="stats" aria-labelledby="stats-h">
+      <h2 id="stats-h">How fast are local business websites?</h2>
+      <p class="sub">
+        This fall I tested {study.sitesScored} independent business websites in Peekskill, Cortlandt,
+        Croton-on-Hudson, Yorktown, and Ossining with Google's mobile speed test.
+      </p>
+      <dl>
+        <div><dt>Met Google's 2.5-second target</dt><dd>{study.metLcpTarget} of {study.sitesScored}</dd></div>
+        <div><dt>Typical time to show main content</dt><dd>{study.medianLcpSeconds} seconds</dd></div>
+        <div><dt>Took longer than 10 seconds</dt><dd>{study.lcpOver10s} of {study.sitesScored}</dd></div>
+        <div><dt>Page jumped while loading</dt><dd>{study.layoutShiftPct}%</dd></div>
+      </dl>
+      <p class="note">
+        Google's test simulates a mid-range phone on a slower mobile connection. <a href="/web-developer-peekskill/#method-h">How the study was done</a>.
+      </p>
+    </section>
+
+    <section aria-labelledby="fix-h">
+      <h2 id="fix-h">What I fix</h2>
+      <ul class="builds">
+        {fixes.map((f) => (
+          <li>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="stack" aria-labelledby="vitals-h">
+      <h2 id="vitals-h">What Google measures</h2>
+      <p>
+        Google judges page experience with three measurements called Core Web Vitals: how fast the main content
+        appears (Largest Contentful Paint, good under 2.5 seconds), how quickly the page responds when someone taps
+        (Interaction to Next Paint, good under 200 milliseconds), and how much the layout jumps while loading
+        (Cumulative Layout Shift, good under 0.1). I work on all three, and I explain the results in plain words.
+      </p>
+    </section>
+
+    <section class="process" aria-labelledby="process-h">
+      <h2 id="process-h">How it works</h2>
+      <ol>
+        {steps.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="price" aria-labelledby="price-h">
+      <h2 id="price-h">Pricing</h2>
+      <p>
+        Speed and mobile fixes start at <strong>$750</strong>, with a fixed price after your free check. If your site
+        needs more than fixes, a <a href="/services/#redesigns">redesign</a> keeps your page addresses and Google
+        rankings. A <a href="/services/#pricing-h">care plan</a> from $75 a month keeps it fast after launch.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} />
+    <Cta
+      heading="Find out how fast your site really is"
+      text="Send me your website address. I'll reply within two business days with your mobile score and the two or three changes that would help most. No cost and no obligation."
+      subject="Free speed check"
+    />
+    <p class="area">I work with businesses across <a href="/web-developer-westchester/">Westchester County</a>, including <a href="/web-developer-peekskill/">Peekskill</a>, <a href="/web-developer-cortlandt-manor/">Cortlandt Manor</a>, <a href="/web-developer-croton-on-hudson/">Croton-on-Hudson</a>, <a href="/web-developer-yorktown/">Yorktown</a>, and <a href="/web-developer-ossining/">Ossining</a>, and remotely anywhere in the U.S.</p>
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: clamp(3rem, 8vw, 6rem); }
+  .crumbs { color: var(--muted); font-size: var(--step--1); margin-bottom: 1.5rem; }
+  .crumbs a { color: var(--muted); }
+  .intro { max-width: 46rem; margin-bottom: clamp(3rem, 7vw, 4.5rem); }
+  h1 { font-size: var(--step-4); text-wrap: balance; }
+  .lede { color: #c4ccda; font-size: var(--step-1); line-height: 1.5; margin: 1.25rem 0 2rem; }
+  h2 { font-size: var(--step-2); }
+  section + section { margin-top: clamp(3rem, 7vw, 5rem); }
+
+  .signs ul { margin: 1.25rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; max-width: 44rem; }
+  .signs li { padding-left: 1.6rem; position: relative; color: #c4ccda; }
+  .signs li::before { content: '→'; position: absolute; left: 0; color: var(--amber); font-family: var(--mono); }
+
+  .builds { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .builds li { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: clamp(1.25rem, 3vw, 1.75rem); }
+  .builds h3 { font-size: 1.15rem; }
+  .builds p { color: var(--muted); margin: 0.5rem 0 0; font-size: 0.97rem; }
+
+  .proof .sub { color: #c4ccda; margin: 0.75rem 0 0; }
+  .proof ul { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.25rem; }
+  .proof li { border-left: 2px solid var(--amber); padding-left: 1.25rem; max-width: 46rem; }
+  .proof h3 { font-size: 1.15rem; }
+  .proof h3 a { color: var(--text); text-decoration-color: var(--rule); }
+  .proof h3 a:hover { color: var(--amber); }
+  .proof p { color: var(--muted); margin: 0.4rem 0 0; }
+
+  .stack p, .price p { color: #c4ccda; max-width: 62ch; margin: 0.75rem 0 0; }
+  .price a, .area a { color: var(--amber); }
+  .price strong { color: var(--amber); }
+
+  .process ol { list-style: none; counter-reset: step; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+  .process li { counter-increment: step; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  .process li:first-child { border-color: var(--amber); }
+  .process li::before { content: counter(step); font-family: var(--mono); color: var(--amber); font-size: 0.85rem; }
+  .process h3 { font-size: 1.1rem; margin: 0.35rem 0 0.4rem; }
+  .process p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  .area { color: var(--muted); margin-top: 2rem; font-size: var(--step--1); max-width: 62ch; }
+
+  @media (max-width: 60rem) {
+    .builds { grid-template-columns: repeat(2, 1fr); }
+    .process ol { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 36rem) {
+    .builds, .process ol { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style>
+  .stats .sub { color: #c4ccda; max-width: 62ch; margin: 0.75rem 0 0; }
+  .stats dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin: 1.5rem 0 0; }
+  .stats dl div { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.4rem; }
+  .stats dt { color: var(--muted); font-size: 0.95rem; }
+  .stats dd { margin: 0; color: var(--amber); font-size: var(--step-2); font-weight: 600; line-height: 1.1; }
+  .stats .note { color: var(--muted); font-size: var(--step--1); margin-top: 1rem; }
+  .stats .note a { color: var(--amber); }
+  .process ol { grid-template-columns: repeat(4, 1fr) !important; }
+  @media (max-width: 60rem) { .stats dl, .process ol { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 36rem) { .stats dl { grid-template-columns: 1fr 1fr !important; } .process ol { grid-template-columns: 1fr !important; } }
+</style>
